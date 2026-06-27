@@ -1,41 +1,139 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ASTS SpaceMobile — Tracker 2026</title>
 <style>
 :root {
-  --bg: #0c0c0e;
-  --bg2: #13131a;
-  --bg3: #1a1a24;
-  --border: rgba(255,255,255,0.08);
+  --bg:      #0c0c0e;
+  --bg2:     #13131a;
+  --bg3:     #1a1a24;
+  --border:  rgba(255,255,255,0.08);
   --border2: rgba(255,255,255,0.14);
-  --text: #e8e6f0;
-  --text2: #9a97a8;
-  --text3: #5e5b6e;
+  --text:    #e8e6f0;
+  --text2:   #9a97a8;
+  --text3:   #5e5b6e;
+  --shadow:  0 1px 3px rgba(0,0,0,0.4);
 
-  --teal:   #1D9E75;
-  --teal-l: #E1F5EE;
-  --teal-d: #0a3d2d;
-  --blue:   #378ADD;
-  --blue-l: #E6F1FB;
-  --blue-d: #0c2a4a;
-  --amber:  #BA7517;
-  --amber-l:#FAEEDA;
-  --amber-d:#3d2405;
-  --coral:  #D85A30;
-  --coral-l:#FAECE7;
-  --coral-d:#3d1508;
-  --purple: #7F77DD;
-  --purple-l:#EEEDFE;
-  --purple-d:#1e1a4a;
-  --pink:   #D4537E;
-  --pink-l: #FBEAF0;
-  --pink-d: #3a0f20;
-  --green:  #639922;
-  --green-l:#EAF3DE;
-  --green-d:#1a2e08;
+  --teal:     #1D9E75;
+  --teal-bg:  rgba(29,158,117,0.12);
+  --teal-bd:  rgba(29,158,117,0.28);
+  --teal-t:   #5DCAA5;
+  --teal-tag-bg: rgba(29,158,117,0.15);
+  --teal-tag-c:  #5DCAA5;
+  --teal-tag-bd: rgba(29,158,117,0.3);
+
+  --blue:     #378ADD;
+  --blue-bg:  rgba(55,138,221,0.1);
+  --blue-bd:  rgba(55,138,221,0.22);
+  --blue-t:   #85B7EB;
+  --blue-tag-bg: rgba(55,138,221,0.15);
+  --blue-tag-c:  #85B7EB;
+  --blue-tag-bd: rgba(55,138,221,0.3);
+
+  --coral:    #D85A30;
+  --coral-bg: rgba(216,90,48,0.1);
+  --coral-bd: rgba(216,90,48,0.22);
+  --coral-t:  #F0997B;
+  --coral-tag-bg: rgba(216,90,48,0.15);
+  --coral-tag-c:  #F0997B;
+  --coral-tag-bd: rgba(216,90,48,0.3);
+
+  --amber:    #BA7517;
+  --amber-bg: rgba(186,117,23,0.1);
+  --amber-bd: rgba(186,117,23,0.22);
+  --amber-t:  #FAC775;
+  --amber-tag-bg: rgba(186,117,23,0.15);
+  --amber-tag-c:  #FAC775;
+  --amber-tag-bd: rgba(186,117,23,0.3);
+
+  --purple:    #7F77DD;
+  --purple-bg: rgba(127,119,221,0.1);
+  --purple-bd: rgba(127,119,221,0.22);
+  --purple-t:  #AFA9EC;
+  --purple-tag-bg: rgba(127,119,221,0.15);
+  --purple-tag-c:  #AFA9EC;
+  --purple-tag-bd: rgba(127,119,221,0.3);
+
+  --pink:    #D4537E;
+  --pink-bg: rgba(212,83,126,0.1);
+  --pink-bd: rgba(212,83,126,0.22);
+  --pink-t:  #ED93B1;
+  --pink-tag-bg: rgba(212,83,126,0.15);
+  --pink-tag-c:  #ED93B1;
+  --pink-tag-bd: rgba(212,83,126,0.3);
+
+  --green:    #639922;
+  --green-tag-bg: rgba(99,153,34,0.15);
+  --green-tag-c:  #97C459;
+  --green-tag-bd: rgba(99,153,34,0.3);
+
+  --gray-tag-bg: rgba(255,255,255,0.06);
+  --gray-tag-c:  #9a97a8;
+  --gray-tag-bd: rgba(255,255,255,0.12);
+}
+
+[data-theme="light"] {
+  --bg:      #f5f4f0;
+  --bg2:     #ffffff;
+  --bg3:     #f0eeea;
+  --border:  rgba(0,0,0,0.08);
+  --border2: rgba(0,0,0,0.14);
+  --text:    #1a1a1f;
+  --text2:   #5a5868;
+  --text3:   #a09eb0;
+  --shadow:  0 1px 4px rgba(0,0,0,0.10);
+
+  --teal-bg:  #E1F5EE;
+  --teal-bd:  #9FE1CB;
+  --teal-t:   #0F6E56;
+  --teal-tag-bg: #E1F5EE;
+  --teal-tag-c:  #085041;
+  --teal-tag-bd: #9FE1CB;
+
+  --blue-bg:  #E6F1FB;
+  --blue-bd:  #B5D4F4;
+  --blue-t:   #185FA5;
+  --blue-tag-bg: #E6F1FB;
+  --blue-tag-c:  #0C447C;
+  --blue-tag-bd: #B5D4F4;
+
+  --coral-bg: #FAECE7;
+  --coral-bd: #F5C4B3;
+  --coral-t:  #993C1D;
+  --coral-tag-bg: #FAECE7;
+  --coral-tag-c:  #712B13;
+  --coral-tag-bd: #F5C4B3;
+
+  --amber-bg: #FAEEDA;
+  --amber-bd: #FAC775;
+  --amber-t:  #854F0B;
+  --amber-tag-bg: #FAEEDA;
+  --amber-tag-c:  #633806;
+  --amber-tag-bd: #FAC775;
+
+  --purple-bg: #EEEDFE;
+  --purple-bd: #CECBF6;
+  --purple-t:  #534AB7;
+  --purple-tag-bg: #EEEDFE;
+  --purple-tag-c:  #3C3489;
+  --purple-tag-bd: #CECBF6;
+
+  --pink-bg: #FBEAF0;
+  --pink-bd: #F4C0D1;
+  --pink-t:  #993556;
+  --pink-tag-bg: #FBEAF0;
+  --pink-tag-c:  #72243E;
+  --pink-tag-bd: #F4C0D1;
+
+  --green-tag-bg: #EAF3DE;
+  --green-tag-c:  #27500A;
+  --green-tag-bd: #C0DD97;
+
+  --gray-tag-bg: #f0eeea;
+  --gray-tag-c:  #5a5868;
+  --gray-tag-bd: rgba(0,0,0,0.14);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -47,200 +145,122 @@ body {
   font-size: 14px;
   line-height: 1.6;
   min-height: 100vh;
+  transition: background 0.2s, color 0.2s;
 }
 
-/* NAV */
+/* ── NAV ── */
 nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(12,12,14,0.92);
-  backdrop-filter: blur(12px);
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg);
   border-bottom: 1px solid var(--border);
   padding: 0 24px;
-  display: flex;
-  align-items: center;
-  gap: 0;
-  height: 52px;
+  display: flex; align-items: center; height: 52px; gap: 0;
+  transition: background 0.2s;
 }
+[data-theme="dark"] nav { background: rgba(12,12,14,0.92); backdrop-filter: blur(12px); }
+[data-theme="light"] nav { background: rgba(245,244,240,0.92); backdrop-filter: blur(12px); }
+
 .nav-logo {
-  font-weight: 700;
-  font-size: 15px;
-  color: var(--teal);
-  letter-spacing: -0.02em;
-  margin-right: 32px;
-  flex-shrink: 0;
+  font-weight: 700; font-size: 15px;
+  color: var(--teal); letter-spacing: -0.02em;
+  margin-right: 32px; flex-shrink: 0;
 }
 .nav-logo span { color: var(--text2); font-weight: 400; }
-.nav-tabs {
-  display: flex;
-  gap: 2px;
-  flex: 1;
-}
-.nav-tab {
-  padding: 6px 14px;
-  border-radius: 6px;
-  font-size: 13px;
-  color: var(--text2);
-  cursor: pointer;
-  transition: all 0.15s;
-  border: none;
-  background: none;
-}
-.nav-tab:hover { color: var(--text); background: rgba(255,255,255,0.05); }
-.nav-tab.active { color: var(--text); background: rgba(255,255,255,0.08); }
-.nav-updated {
-  font-size: 11px;
-  color: var(--text3);
-  flex-shrink: 0;
-}
 
-/* LAYOUT */
+.nav-tabs { display: flex; gap: 2px; flex: 1; }
+.nav-tab {
+  padding: 6px 14px; border-radius: 6px;
+  font-size: 13px; color: var(--text2);
+  cursor: pointer; transition: all 0.15s;
+  border: none; background: none;
+}
+.nav-tab:hover { color: var(--text); background: var(--bg3); }
+.nav-tab.active { color: var(--text); background: var(--bg3); }
+
+.nav-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.nav-updated { font-size: 11px; color: var(--text3); }
+
+/* Toggle dark/light */
+.theme-toggle {
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 8px;
+  border: 1px solid var(--border2);
+  background: var(--bg2); cursor: pointer;
+  color: var(--text2); font-size: 15px;
+  transition: all 0.15s; flex-shrink: 0;
+}
+.theme-toggle:hover { color: var(--text); border-color: var(--text3); }
+.icon-moon { display: block; }
+.icon-sun  { display: none; }
+[data-theme="light"] .icon-moon { display: none; }
+[data-theme="light"] .icon-sun  { display: block; }
+
+/* ── LAYOUT ── */
 .page { display: none; padding: 28px 24px 60px; max-width: 1100px; margin: 0 auto; }
 .page.active { display: block; }
 
-/* STATS BAR */
+/* ── STATS ── */
 .stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 10px;
-  margin-bottom: 28px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
+  gap: 10px; margin-bottom: 28px;
 }
 .stat {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 14px 16px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px;
+  box-shadow: var(--shadow); transition: background 0.2s;
 }
-.stat-num {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-}
-.stat-label {
-  font-size: 11px;
-  color: var(--text2);
-  margin-top: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.stat-num.teal   { color: var(--teal); }
-.stat-num.coral  { color: var(--coral); }
-.stat-num.purple { color: var(--purple); }
-.stat-num.amber  { color: var(--amber); }
+.stat-num { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+.stat-label { font-size: 11px; color: var(--text2); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+.c-teal   { color: var(--teal); }
+.c-coral  { color: var(--coral); }
+.c-purple { color: var(--purple); }
+.c-amber  { color: var(--amber); }
 
-/* TIMELINE */
-.timeline-section {
-  margin-bottom: 10px;
-}
+/* ── TIMELINE ── */
 .section-label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text3);
-  padding: 18px 0 8px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text3); padding: 18px 0 8px;
+  display: flex; align-items: center; gap: 10px;
 }
-.section-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-.section-badge {
-  font-size: 10px;
-  padding: 1px 8px;
-  border-radius: 20px;
-  font-weight: 500;
-  letter-spacing: 0;
-  text-transform: none;
+.section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.s-badge {
+  font-size: 10px; padding: 1px 8px; border-radius: 20px;
+  font-weight: 600; letter-spacing: 0; text-transform: none;
 }
 
-.tl-row {
-  display: flex;
-  align-items: stretch;
-  gap: 0;
-  margin-bottom: 2px;
-}
+.tl-row { display: flex; align-items: stretch; margin-bottom: 2px; }
 .tl-date {
-  width: 88px;
-  min-width: 88px;
-  font-size: 11px;
-  color: var(--text3);
-  padding: 12px 14px 12px 0;
-  text-align: right;
-  flex-shrink: 0;
-  display: flex;
-  align-items: flex-start;
-  padding-top: 14px;
+  width: 88px; min-width: 88px; font-size: 11px; color: var(--text3);
+  padding: 14px 14px 12px 0; text-align: right; flex-shrink: 0;
 }
-.tl-line {
-  width: 1px;
-  background: var(--border2);
-  flex-shrink: 0;
-  margin-right: 16px;
-}
-.tl-events {
-  flex: 1;
-  padding: 8px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
+.tl-line { width: 1px; background: var(--border2); flex-shrink: 0; margin-right: 16px; }
+.tl-events { flex: 1; padding: 8px 0; display: flex; flex-direction: column; gap: 5px; }
+
 .tl-event {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 9px 12px;
-  border-radius: 9px;
-  border: 1px solid transparent;
-  cursor: default;
-  transition: background 0.12s;
-  position: relative;
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 9px 12px; border-radius: 9px;
+  border: 1px solid transparent; transition: background 0.12s;
 }
 .tl-event:hover { background: var(--bg2); }
 .tl-event.done { opacity: 0.6; }
-.tl-event.hot {
-  background: rgba(186,117,23,0.07);
-  border-color: rgba(186,117,23,0.2);
-}
-.tl-event.fail {
-  background: rgba(216,90,48,0.07);
-  border-color: rgba(216,90,48,0.15);
-}
-.tl-event.win {
-  background: rgba(29,158,117,0.07);
-  border-color: rgba(29,158,117,0.2);
-}
+.tl-event.hot  { background: var(--amber-bg); border-color: var(--amber-bd); }
+.tl-event.fail { background: var(--coral-bg); border-color: var(--coral-bd); }
+.tl-event.win  { background: var(--teal-bg);  border-color: var(--teal-bd); }
+.tl-event.new-item { background: var(--pink-bg); border-color: var(--pink-bd); }
 
-.tl-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 5px;
-}
+.tl-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
 .tl-body { flex: 1; }
 .tl-text { font-size: 13px; color: var(--text); line-height: 1.5; }
-.tl-text strong { color: #fff; font-weight: 600; }
+.tl-text strong { color: var(--text); font-weight: 600; }
+[data-theme="dark"] .tl-text strong { color: #fff; }
+
 .tl-tag {
-  display: inline-flex;
-  font-size: 10px;
-  font-weight: 600;
-  padding: 1px 8px;
-  border-radius: 20px;
-  margin-left: 8px;
-  flex-shrink: 0;
-  align-self: flex-start;
-  margin-top: 2px;
-  white-space: nowrap;
+  font-size: 10px; font-weight: 600; padding: 1px 8px; border-radius: 20px;
+  margin-left: 8px; flex-shrink: 0; align-self: flex-start;
+  margin-top: 2px; white-space: nowrap;
 }
 
-/* dot colors */
+/* dot */
 .d-teal   { background: var(--teal); }
 .d-blue   { background: var(--blue); }
 .d-coral  { background: var(--coral); }
@@ -250,137 +270,95 @@ nav {
 .d-green  { background: var(--green); }
 .d-gray   { background: var(--text3); }
 
-/* tag colors */
-.t-teal   { background: var(--teal-d); color: #5DCAA5; border: 1px solid rgba(29,158,117,0.3); }
-.t-blue   { background: var(--blue-d); color: #85B7EB; border: 1px solid rgba(55,138,221,0.3); }
-.t-coral  { background: var(--coral-d); color: #F0997B; border: 1px solid rgba(216,90,48,0.3); }
-.t-amber  { background: var(--amber-d); color: #FAC775; border: 1px solid rgba(186,117,23,0.3); }
-.t-purple { background: var(--purple-d); color: #AFA9EC; border: 1px solid rgba(127,119,221,0.3); }
-.t-pink   { background: var(--pink-d); color: #ED93B1; border: 1px solid rgba(212,83,126,0.3); }
-.t-green  { background: var(--green-d); color: #97C459; border: 1px solid rgba(99,153,34,0.3); }
-.t-gray   { background: var(--bg3); color: var(--text2); border: 1px solid var(--border2); }
+/* tags */
+.t-teal   { background: var(--teal-tag-bg);   color: var(--teal-tag-c);   border: 1px solid var(--teal-tag-bd); }
+.t-blue   { background: var(--blue-tag-bg);   color: var(--blue-tag-c);   border: 1px solid var(--blue-tag-bd); }
+.t-coral  { background: var(--coral-tag-bg);  color: var(--coral-tag-c);  border: 1px solid var(--coral-tag-bd); }
+.t-amber  { background: var(--amber-tag-bg);  color: var(--amber-tag-c);  border: 1px solid var(--amber-tag-bd); }
+.t-purple { background: var(--purple-tag-bg); color: var(--purple-tag-c); border: 1px solid var(--purple-tag-bd); }
+.t-pink   { background: var(--pink-tag-bg);   color: var(--pink-tag-c);   border: 1px solid var(--pink-tag-bd); }
+.t-green  { background: var(--green-tag-bg);  color: var(--green-tag-c);  border: 1px solid var(--green-tag-bd); }
+.t-gray   { background: var(--gray-tag-bg);   color: var(--gray-tag-c);   border: 1px solid var(--gray-tag-bd); }
 
-/* MAP STRATÉGIQUE */
+/* ── MAP ── */
 .map-zone {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px 18px;
-  margin-bottom: 10px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px 18px; margin-bottom: 10px;
+  box-shadow: var(--shadow); transition: background 0.2s;
 }
-.map-zone-title {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 12px;
-}
-.actor-grid {
-  display: grid;
-  gap: 8px;
-}
+.map-zone-title { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text3); margin-bottom: 12px; }
+
+.actor-grid { display: grid; gap: 8px; }
 .g2 { grid-template-columns: 1fr 1fr; }
 .g3 { grid-template-columns: 1fr 1fr 1fr; }
 .g4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
 
-.actor {
-  border-radius: 9px;
-  padding: 11px 13px;
-  border: 1px solid transparent;
-}
+.actor { border-radius: 9px; padding: 11px 13px; border: 1px solid transparent; transition: background 0.15s; }
 .actor-name { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+.actor-date { font-size: 10px; color: var(--text3); margin-bottom: 5px; letter-spacing: 0.02em; }
 .actor-sub  { font-size: 11px; line-height: 1.45; }
 .actor-tags { margin-top: 7px; display: flex; flex-wrap: wrap; gap: 4px; }
-.atag {
-  font-size: 10px;
-  font-weight: 600;
-  padding: 1px 7px;
-  border-radius: 20px;
-}
+.atag { font-size: 10px; font-weight: 600; padding: 1px 7px; border-radius: 20px; }
 
-.a-teal   { background: rgba(29,158,117,0.12); border-color: rgba(29,158,117,0.25); }
-.a-teal .actor-name   { color: #5DCAA5; }
-.a-teal .actor-sub    { color: #1D9E75; }
+.a-teal   { background: var(--teal-bg);   border-color: var(--teal-bd); }
+.a-teal .actor-name { color: var(--teal-t); }
+.a-teal .actor-sub  { color: var(--teal); }
 
-.a-coral  { background: rgba(216,90,48,0.1); border-color: rgba(216,90,48,0.2); }
-.a-coral .actor-name  { color: #F0997B; }
-.a-coral .actor-sub   { color: var(--coral); }
+.a-coral  { background: var(--coral-bg);  border-color: var(--coral-bd); }
+.a-coral .actor-name { color: var(--coral-t); }
+.a-coral .actor-sub  { color: var(--coral); }
 
-.a-blue   { background: rgba(55,138,221,0.1); border-color: rgba(55,138,221,0.2); }
-.a-blue .actor-name   { color: #85B7EB; }
-.a-blue .actor-sub    { color: var(--blue); }
+.a-blue   { background: var(--blue-bg);   border-color: var(--blue-bd); }
+.a-blue .actor-name { color: var(--blue-t); }
+.a-blue .actor-sub  { color: var(--blue); }
 
-.a-amber  { background: rgba(186,117,23,0.1); border-color: rgba(186,117,23,0.2); }
-.a-amber .actor-name  { color: #FAC775; }
-.a-amber .actor-sub   { color: var(--amber); }
+.a-amber  { background: var(--amber-bg);  border-color: var(--amber-bd); }
+.a-amber .actor-name { color: var(--amber-t); }
+.a-amber .actor-sub  { color: var(--amber); }
 
-.a-purple { background: rgba(127,119,221,0.1); border-color: rgba(127,119,221,0.2); }
-.a-purple .actor-name { color: #AFA9EC; }
+.a-purple { background: var(--purple-bg); border-color: var(--purple-bd); }
+.a-purple .actor-name { color: var(--purple-t); }
 .a-purple .actor-sub  { color: var(--purple); }
 
-.a-pink   { background: rgba(212,83,126,0.1); border-color: rgba(212,83,126,0.2); }
-.a-pink .actor-name   { color: #ED93B1; }
-.a-pink .actor-sub    { color: var(--pink); }
+.a-pink   { background: var(--pink-bg);   border-color: var(--pink-bd); }
+.a-pink .actor-name { color: var(--pink-t); }
+.a-pink .actor-sub  { color: var(--pink); }
 
 .a-gray   { background: var(--bg3); border-color: var(--border2); }
-.a-gray .actor-name   { color: var(--text); }
-.a-gray .actor-sub    { color: var(--text2); }
+.a-gray .actor-name { color: var(--text); }
+.a-gray .actor-sub  { color: var(--text2); }
 
-/* FLOWS */
-.flows-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 10px;
-}
+/* ── FLOWS ── */
+.flows-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
 .flow-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 12px 14px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 14px;
+  box-shadow: var(--shadow); transition: background 0.2s;
 }
 .flow-from { font-weight: 600; font-size: 12px; color: var(--text); }
 .flow-arrow { color: var(--text3); font-size: 12px; margin: 3px 0; }
 .flow-to   { font-weight: 600; font-size: 12px; color: var(--text); }
 .flow-desc { font-size: 11px; color: var(--text2); margin-top: 5px; line-height: 1.45; }
 
-/* DIVIDER */
+/* ── DIVIDER ── */
 .divider {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 18px 0 10px;
-  color: var(--text3);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  display: flex; align-items: center; gap: 10px;
+  margin: 18px 0 10px; color: var(--text3);
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
 }
-.divider::before, .divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-/* FOOTER */
-.footer {
-  font-size: 11px;
-  color: var(--text3);
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border);
-}
+/* ── FOOTER ── */
+.footer { font-size: 11px; color: var(--text3); margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }
 
-/* RESPONSIVE */
+/* ── RESPONSIVE ── */
 @media (max-width: 640px) {
   nav { padding: 0 14px; }
   .page { padding: 18px 14px 40px; }
-  .g3 { grid-template-columns: 1fr 1fr; }
-  .g4 { grid-template-columns: 1fr 1fr; }
+  .g3, .g4 { grid-template-columns: 1fr 1fr; }
   .flows-grid { grid-template-columns: 1fr; }
-  .tl-date { width: 64px; min-width: 64px; font-size: 10px; }
+  .tl-date { width: 62px; min-width: 62px; font-size: 10px; }
+  .nav-updated { display: none; }
 }
 </style>
 </head>
@@ -389,25 +367,33 @@ nav {
 <nav>
   <div class="nav-logo">ASTS <span>Tracker 2026</span></div>
   <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showPage('roadmap', this)">Roadmap</button>
-    <button class="nav-tab" onclick="showPage('map', this)">Carte stratégique</button>
+    <button class="nav-tab active" onclick="showPage('roadmap',this)">Roadmap</button>
+    <button class="nav-tab" onclick="showPage('map',this)">Carte stratégique</button>
   </div>
-  <div class="nav-updated">Mise à jour : 27 juin 2026</div>
+  <div class="nav-right">
+    <span class="nav-updated">Mise à jour : 27 juin 2026</span>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Changer de thème" aria-label="Basculer dark/light">
+      <span class="icon-moon">🌙</span>
+      <span class="icon-sun">☀️</span>
+    </button>
+  </div>
 </nav>
 
-<!-- ══════════════ PAGE ROADMAP ══════════════ -->
+<!-- ══════════════════════════════════════
+     PAGE ROADMAP
+══════════════════════════════════════ -->
 <div id="roadmap" class="page active">
 
   <div class="stats">
-    <div class="stat"><div class="stat-num teal">9</div><div class="stat-label">BlueBirds en orbite</div></div>
-    <div class="stat"><div class="stat-num teal">+3</div><div class="stat-label">BB 11-13 (août 2026)</div></div>
-    <div class="stat"><div class="stat-num coral">Q1 2027</div><div class="stat-label">Objectif 45 sats révisé</div></div>
-    <div class="stat"><div class="stat-num amber">$150–200M</div><div class="stat-label">Guidance CA 2026</div></div>
-    <div class="stat"><div class="stat-num purple">¥150 Md</div><div class="stat-label">J-LEO en jeu</div></div>
+    <div class="stat"><div class="stat-num c-teal">9</div><div class="stat-label">BlueBirds en orbite</div></div>
+    <div class="stat"><div class="stat-num c-teal">+3</div><div class="stat-label">BB 11-13 (août 2026)</div></div>
+    <div class="stat"><div class="stat-num c-coral">Q1 2027</div><div class="stat-label">Objectif 45 sats révisé</div></div>
+    <div class="stat"><div class="stat-num c-amber">$150–200M</div><div class="stat-label">Guidance CA 2026</div></div>
+    <div class="stat"><div class="stat-num c-purple">¥150 Md</div><div class="stat-label">J-LEO en jeu</div></div>
   </div>
 
-  <!-- T1 2026 -->
-  <div class="section-label">T1 2026 <span class="section-badge t-green">✓ Terminé</span></div>
+  <!-- T1 -->
+  <div class="section-label">T1 2026 <span class="s-badge t-green">✓ Terminé</span></div>
   <div class="tl-row">
     <div class="tl-date">Jan.–Fév.</div>
     <div class="tl-line"></div>
@@ -419,38 +405,36 @@ nav {
       </div>
       <div class="tl-event done">
         <span class="tl-dot d-pink"></span>
-        <div class="tl-body"><span class="tl-text">✓ Rakuten annonce le lancement commercial <em>Saikyo Satellite Service powered by AST</em> en Q4 2026 au Japon</span></div>
+        <div class="tl-body"><span class="tl-text">✓ Rakuten annonce <em>Saikyo Satellite Service powered by AST</em> — lancement commercial Q4 2026 au Japon</span></div>
         <span class="tl-tag t-pink">J-LEO</span>
       </div>
     </div>
   </div>
 
-  <!-- T2 2026 -->
-  <div class="section-label">T2 2026 <span class="section-badge t-green">✓ Terminé</span></div>
+  <!-- T2 -->
+  <div class="section-label">T2 2026 <span class="s-badge t-green">✓ Terminé</span></div>
   <div class="tl-row">
     <div class="tl-date">19 avr.</div>
     <div class="tl-line"></div>
     <div class="tl-events">
       <div class="tl-event fail done">
         <span class="tl-dot d-coral"></span>
-        <div class="tl-body"><span class="tl-text">✗ <strong>BlueBird 7 : échec New Glenn NG-3</strong> — panne moteur 2e étage → satellite désorbité. FAA immobilise New Glenn. Couvert par assurance.</span></div>
+        <div class="tl-body"><span class="tl-text">✗ <strong>BlueBird 7 : échec New Glenn NG-3</strong> — panne moteur 2e étage → désorbité. FAA immobilise New Glenn. Couvert assurance.</span></div>
         <span class="tl-tag t-coral">Incident</span>
       </div>
     </div>
   </div>
-
   <div class="tl-row">
     <div class="tl-date">Fin mai</div>
     <div class="tl-line"></div>
     <div class="tl-events">
       <div class="tl-event fail done">
         <span class="tl-dot d-purple"></span>
-        <div class="tl-body"><span class="tl-text">↓ <strong>ASTS atteint 133$ (ATH) puis chute −49%</strong> — euphorie pré-IPO SpaceX + insiders SpaceX shortent ~24 M actions ASTS (~2,4 Md$) comme hedge du lockup. Starlink = 69% CA SpaceX → ASTS = short proxy naturel.</span></div>
+        <div class="tl-body"><span class="tl-text">↓ <strong>ASTS 133$ (ATH) puis −49%</strong> — euphorie pré-IPO SpaceX + insiders SpaceX shortent ~24 M actions ASTS (~2,4 Md$) comme hedge du lockup. Starlink = 69% CA SpaceX → ASTS = proxy short naturel.</span></div>
         <span class="tl-tag t-purple">Marché</span>
       </div>
     </div>
   </div>
-
   <div class="tl-row">
     <div class="tl-date">Avr.–Mai</div>
     <div class="tl-line"></div>
@@ -472,17 +456,16 @@ nav {
       </div>
       <div class="tl-event done">
         <span class="tl-dot d-teal"></span>
-        <div class="tl-body"><span class="tl-text">✓ TELUS (Canada) rejoint l'écosystème → 60 MNO partenaires, 3 Md abonnés couverts</span></div>
+        <div class="tl-body"><span class="tl-text">✓ TELUS (Canada) rejoint → 60 MNO partenaires, 3 Md abonnés couverts</span></div>
         <span class="tl-tag t-teal">Commercial</span>
       </div>
       <div class="tl-event done">
         <span class="tl-dot d-amber"></span>
-        <div class="tl-body"><span class="tl-text">✓ Autorisation spectre 10×10 MHz S-band accordée au Brésil</span></div>
+        <div class="tl-body"><span class="tl-text">✓ Autorisation spectre S-band 10×10 MHz au Brésil</span></div>
         <span class="tl-tag t-amber">Réglementaire</span>
       </div>
     </div>
   </div>
-
   <div class="tl-row">
     <div class="tl-date">17 juin</div>
     <div class="tl-line"></div>
@@ -496,7 +479,7 @@ nav {
   </div>
 
   <!-- J-LEO -->
-  <div class="section-label">Catalyseur Japon — J-LEO <span class="section-badge t-pink">Décision imminente</span></div>
+  <div class="section-label">Catalyseur Japon — J-LEO <span class="s-badge t-pink">Décision imminente</span></div>
   <div class="tl-row">
     <div class="tl-date">Avr. 2025</div>
     <div class="tl-line"></div>
@@ -512,19 +495,19 @@ nav {
     <div class="tl-date">Juin 2026</div>
     <div class="tl-line"></div>
     <div class="tl-events">
-      <div class="tl-event hot">
+      <div class="tl-event new-item">
         <span class="tl-dot d-pink"></span>
-        <div class="tl-body"><span class="tl-text">🆕 <strong>JV officielle créée</strong> entre Rakuten Mobile et AST ("Satwork Japan"). KDDI avait découvert que ASTS testait déjà sur le spectre SoftBank.</span></div>
+        <div class="tl-body"><span class="tl-text">🆕 <strong>JV officielle créée</strong> — Rakuten Mobile + AST ("Satwork Japan"). KDDI avait découvert que ASTS testait déjà sur le spectre SoftBank.</span></div>
         <span class="tl-tag t-pink">Nouveau</span>
       </div>
-      <div class="tl-event hot">
+      <div class="tl-event new-item">
         <span class="tl-dot d-amber"></span>
-        <div class="tl-body"><span class="tl-text">🆕 <strong>MIC Japon approuve spectre 700 MHz Rakuten pour usage satellitaire</strong> — low-band exclusif, pénètre décombres/bâtiments. Avantage décisif vs Starlink mid-band. Réunion de suivi sept. 2026.</span></div>
+        <div class="tl-body"><span class="tl-text">🆕 <strong>MIC Japon approuve spectre 700 MHz Rakuten pour usage satellitaire</strong> — low-band exclusif, pénètre décombres/bâtiments. Avantage décisif vs Starlink mid-band. Réunion suivi : sept. 2026.</span></div>
         <span class="tl-tag t-pink">Nouveau</span>
       </div>
       <div class="tl-event hot">
         <span class="tl-dot d-pink"></span>
-        <div class="tl-body"><span class="tl-text">⏳ <strong>Décision interne fin juin</strong> — 2 finalistes : Rakuten+ASTS vs KDDI+SpaceX. Avantages ASTS : téléphones existants, low-band, lancement potentiel sur H3 Mitsubishi (soutien industrie japonaise). Budget ~1 Md$. Annonce publique juillet–août.</span></div>
+        <div class="tl-body"><span class="tl-text">⏳ <strong>Décision interne fin juin</strong> — 2 finalistes : Rakuten+ASTS vs KDDI+SpaceX. Avantages ASTS : téléphones existants, low-band, lancement potentiel H3 Mitsubishi. Budget ~1 Md$. Annonce publique juil.–août.</span></div>
         <span class="tl-tag t-amber">En cours</span>
       </div>
     </div>
@@ -535,102 +518,98 @@ nav {
     <div class="tl-events">
       <div class="tl-event">
         <span class="tl-dot d-pink"></span>
-        <div class="tl-body"><span class="tl-text">Si victoire : événement commercial majeur "FirstNet du Japon". SoftBank & NTT Docomo pourraient rejoindre la JV. Lancement commercial <em>Saikyo Satellite Service</em>.</span></div>
+        <div class="tl-body"><span class="tl-text">Si victoire : événement commercial majeur "FirstNet du Japon". SoftBank & NTT Docomo pourraient rejoindre. Lancement <em>Saikyo Satellite Service</em>.</span></div>
         <span class="tl-tag t-pink">Cible</span>
       </div>
     </div>
   </div>
 
-  <!-- T3 2026 -->
-  <div class="section-label">T3 2026 <span class="section-badge" style="background:rgba(55,138,221,0.15);color:#85B7EB;border:1px solid rgba(55,138,221,0.3)">En cours</span></div>
-
+  <!-- T3 -->
+  <div class="section-label">T3 2026 <span class="s-badge t-blue">En cours</span></div>
   <div class="tl-row">
     <div class="tl-date">23 juin</div>
     <div class="tl-line"></div>
     <div class="tl-events">
-      <div class="tl-event hot">
+      <div class="tl-event new-item">
         <span class="tl-dot d-blue"></span>
         <div class="tl-body"><span class="tl-text">🆕 <strong>BB 11, 12, 13 annoncés pour 1ère quinzaine août</strong> — Falcon 9, Cap Canaveral. Production confirmée jusqu'à BB 37. Constellation → 12 satellites.</span></div>
         <span class="tl-tag t-blue">Annoncé</span>
       </div>
-      <div class="tl-event hot">
+      <div class="tl-event new-item">
         <span class="tl-dot d-coral"></span>
-        <div class="tl-body"><span class="tl-text">🆕 <strong>Starlink annonce attaque du marché mobile terrestre (FT)</strong> — vente directe aux consommateurs, en concurrence frontale avec les MNOs. Catalyseur stratégique positif pour ASTS : T-Mobile quitte Starlink et rejoint la JV AT&T-Verizon-ASTS.</span></div>
+        <div class="tl-body"><span class="tl-text">🆕 <strong>Starlink annonce attaque du marché mobile terrestre (FT)</strong> — vente directe aux consommateurs, concurrence frontale avec les MNOs. T-Mobile quitte Starlink et rejoint la JV AT&T-Verizon-ASTS. Catalyseur stratégique positif.</span></div>
         <span class="tl-tag t-teal">Catalyseur</span>
       </div>
     </div>
   </div>
-
   <div class="tl-row">
     <div class="tl-date">Mi-juil.</div>
     <div class="tl-line"></div>
     <div class="tl-events">
       <div class="tl-event">
         <span class="tl-dot d-purple"></span>
-        <div class="tl-body"><span class="tl-text"><strong>Début anticipé du dénouement des positions short</strong> — les hedgers couvrent avant expiration lockup SpaceX. Catalyseur technique potentiel pour le cours.</span></div>
+        <div class="tl-body"><span class="tl-text"><strong>Début anticipé du dénouement des positions short</strong> — hedgers couvrent avant expiration lockup SpaceX. Catalyseur technique pour le cours.</span></div>
         <span class="tl-tag t-purple">Marché</span>
       </div>
     </div>
   </div>
-
   <div class="tl-row">
     <div class="tl-date">20 août</div>
     <div class="tl-line"></div>
     <div class="tl-events">
       <div class="tl-event hot">
         <span class="tl-dot d-purple"></span>
-        <div class="tl-body"><span class="tl-text"><strong>Expiration lockup SpaceX</strong> — 20% des actions débloquées (+10% si cours maintenu). Insiders couvrent shorts ASTS. Rebond technique attendu du secteur spatial.</span></div>
+        <div class="tl-body"><span class="tl-text"><strong>Expiration lockup SpaceX</strong> — 20% des actions débloquées (+10% si cours maintenu). Insiders couvrent shorts ASTS → rebond technique attendu.</span></div>
         <span class="tl-tag t-purple">Catalyseur</span>
       </div>
-      <div class="tl-event">
+      <div class="tl-event hot">
         <span class="tl-dot d-blue"></span>
         <div class="tl-body"><span class="tl-text"><strong>Lancement BB 11, 12, 13</strong> sur Falcon 9 — constellation → 12 satellites Block 2 actifs.</span></div>
         <span class="tl-tag t-blue">Lancement</span>
       </div>
     </div>
   </div>
-
   <div class="tl-row">
     <div class="tl-date">Août–Sept.</div>
     <div class="tl-line"></div>
     <div class="tl-events">
       <div class="tl-event">
         <span class="tl-dot d-teal"></span>
-        <div class="tl-body"><span class="tl-text">Lancement service bêta direct-to-device (AT&T, Verizon) — couverture intermittente aux États-Unis</span></div>
+        <div class="tl-body"><span class="tl-text">Service bêta direct-to-device (AT&T, Verizon) — couverture intermittente aux États-Unis</span></div>
         <span class="tl-tag t-teal">Commercial</span>
       </div>
       <div class="tl-event">
-        <span class="tl-dot d-amber"></span>
-        <div class="tl-body"><span class="tl-text">MIC Japon : réunion de suivi spectre 700 MHz — étape vers autorisation commerciale formelle. Annonce J-LEO attendue.</span></div>
+        <span class="tl-dot d-pink"></span>
+        <div class="tl-body"><span class="tl-text">MIC Japon : réunion suivi spectre 700 MHz — vers autorisation commerciale formelle. Annonce J-LEO attendue.</span></div>
         <span class="tl-tag t-pink">J-LEO</span>
       </div>
       <div class="tl-event">
         <span class="tl-dot d-amber"></span>
-        <div class="tl-body"><span class="tl-text">Retour potentiel New Glenn si levée interdiction FAA → booster de cadence pour fin 2026</span></div>
+        <div class="tl-body"><span class="tl-text">Retour potentiel New Glenn si levée interdiction FAA → booster de cadence fin 2026</span></div>
         <span class="tl-tag t-amber">Réglementaire</span>
       </div>
     </div>
   </div>
 
-  <!-- T4 2026 -->
-  <div class="section-label">T4 2026 — Objectifs révisés <span class="section-badge t-coral">45 sats → Q1 2027</span></div>
+  <!-- T4 -->
+  <div class="section-label">T4 2026 — Objectifs révisés <span class="s-badge t-coral">45 sats → Q1 2027</span></div>
   <div class="tl-row">
     <div class="tl-date">Oct.–Déc.</div>
     <div class="tl-line"></div>
     <div class="tl-events">
       <div class="tl-event fail">
         <span class="tl-dot d-coral"></span>
-        <div class="tl-body"><span class="tl-text"><strong>Objectif 45 sats fin 2026 non atteignable</strong> — 4 lancements F9 réservés = ~12 sats supplémentaires max. Révision officielle attendue. Blue Origin retour possible en décembre si pad réparé.</span></div>
+        <div class="tl-body"><span class="tl-text"><strong>Objectif 45 sats fin 2026 non atteignable</strong> — 4 lancements F9 réservés = ~12 sats supplémentaires max. Révision officielle attendue. Blue Origin retour possible déc. si pad réparé.</span></div>
         <span class="tl-tag t-coral">Révisé</span>
       </div>
       <div class="tl-event">
         <span class="tl-dot d-blue"></span>
-        <div class="tl-body"><span class="tl-text">Lancements supplémentaires en négociation : Ariane, MHI (H3), ULA, Relativity — annonces au fil des mois</span></div>
+        <div class="tl-body"><span class="tl-text">Lancements supplémentaires en négociation : Ariane, MHI (H3), ULA, Relativity</span></div>
         <span class="tl-tag t-blue">Négociation</span>
       </div>
       <div class="tl-event">
         <span class="tl-dot d-teal"></span>
-        <div class="tl-body"><span class="tl-text">Brésil : JV locale probable avec 1–2 MNO + spectre S-band 10×10 MHz déjà approuvé. Embauches locales en cours. MIMO multi-satellites confirmé (jusqu'à 4 sats simultanés par utilisateur).</span></div>
+        <div class="tl-body"><span class="tl-text">Brésil : JV locale probable + spectre S-band approuvé. MIMO multi-satellites confirmé (jusqu'à 4 sats simultanés/utilisateur). Embauches locales en cours.</span></div>
         <span class="tl-tag t-teal">Commercial</span>
       </div>
     </div>
@@ -644,171 +623,176 @@ nav {
     <div class="tl-events">
       <div class="tl-event">
         <span class="tl-dot d-teal"></span>
-        <div class="tl-body"><span class="tl-text"><strong>Objectif révisé : ~45 satellites en orbite</strong> — Blue Origin reprend les lancements après 2-3 missions réussies. Lancement commercial grand public. 18 pays cibles, 2,9 Md personnes.</span></div>
+        <div class="tl-body"><span class="tl-text"><strong>Objectif révisé : ~45 satellites en orbite</strong> — Blue Origin reprend après 2-3 missions réussies. Lancement commercial grand public. 18 pays cibles, 2,9 Md personnes.</span></div>
         <span class="tl-tag t-teal">Objectif</span>
       </div>
       <div class="tl-event">
         <span class="tl-dot d-purple"></span>
-        <div class="tl-body"><span class="tl-text">+1,2 Md$ engagements contractuels — T-Mobile dans l'écosystème AST via JV MNO — rentabilité attendue 2027–2028</span></div>
+        <div class="tl-body"><span class="tl-text">+1,2 Md$ engagements contractuels — T-Mobile dans l'écosystème AST — rentabilité attendue 2027–2028</span></div>
         <span class="tl-tag t-purple">Finance</span>
       </div>
     </div>
   </div>
 
-  <div class="footer">
-    Mise à jour : 27 juin 2026 · Sources : Business Wire, SEC 8-K, Rakuten Mobile, MIC Japon, Podcast "Why SpaceX Insiders are Shorting ASTS", "Starlink Just Showed Their Hand"
-  </div>
+  <div class="footer">Mise à jour : 27 juin 2026 · Sources : Business Wire · SEC 8-K · Rakuten Mobile · MIC Japon · Podcasts AST SpaceMobile Community</div>
 </div>
 
-<!-- ══════════════ PAGE CARTE STRATÉGIQUE ══════════════ -->
+<!-- ══════════════════════════════════════
+     PAGE CARTE STRATÉGIQUE
+══════════════════════════════════════ -->
 <div id="map" class="page">
 
   <div class="stats">
-    <div class="stat"><div class="stat-num teal">60</div><div class="stat-label">MNO partenaires</div></div>
-    <div class="stat"><div class="stat-num teal">3 Md</div><div class="stat-label">Abonnés couverts</div></div>
-    <div class="stat"><div class="stat-num coral">−49%</div><div class="stat-label">Chute depuis ATH</div></div>
-    <div class="stat"><div class="stat-num purple">20 août</div><div class="stat-label">Lockup SpaceX expire</div></div>
+    <div class="stat"><div class="stat-num c-teal">60</div><div class="stat-label">MNO partenaires</div></div>
+    <div class="stat"><div class="stat-num c-teal">3 Md</div><div class="stat-label">Abonnés couverts</div></div>
+    <div class="stat"><div class="stat-num c-coral">−49%</div><div class="stat-label">Depuis ATH 133$</div></div>
+    <div class="stat"><div class="stat-num c-purple">20 août</div><div class="stat-label">Lockup SpaceX expire</div></div>
   </div>
 
-  <!-- ASTS -->
-  <div class="map-zone" style="border-color: rgba(29,158,117,0.4);">
+  <div class="map-zone" style="border-color: var(--teal-bd);">
     <div class="map-zone-title">⚡ L'actif central</div>
     <div class="actor-grid g2">
       <div class="actor a-teal">
         <div class="actor-name">AST SpaceMobile (ASTS)</div>
+        <div class="actor-date">Fondée 2017 · Nasdaq depuis 2021</div>
         <div class="actor-sub">Constellation LEO direct-to-cell via spectre des MNOs partenaires. Modèle 50/50 avec opérateurs locaux. Seul concurrent crédible à Starlink sur le marché mobile.</div>
-        <div class="actor-tags">
-          <span class="atag t-teal">9 BlueBirds en orbite</span>
-          <span class="atag t-teal">Block 2 → ~200 Mbps</span>
-        </div>
+        <div class="actor-tags"><span class="atag t-teal">9 BlueBirds en orbite</span><span class="atag t-teal">Block 2 → ~200 Mbps</span></div>
       </div>
       <div class="actor a-teal">
         <div class="actor-name">Avantage technique clé</div>
+        <div class="actor-date">Validé en orbite · 2024–2026</div>
         <div class="actor-sub">Low-band (600–900 MHz) : pénètre bâtiments, forêts, décombres. Fonctionne avec téléphones non modifiés existants. Mid-band Starlink ne peut pas faire ça.</div>
-        <div class="actor-tags">
-          <span class="atag t-teal">vs mid-band Starlink</span>
-          <span class="atag t-green">Téléphones existants</span>
-        </div>
+        <div class="actor-tags"><span class="atag t-teal">vs mid-band Starlink</span><span class="atag t-green">Téléphones existants</span></div>
       </div>
     </div>
   </div>
 
-  <!-- MENACE -->
-  <div class="map-zone" style="border-color: rgba(216,90,48,0.4);">
+  <div class="map-zone" style="border-color: var(--coral-bd);">
     <div class="map-zone-title">🔴 La menace — SpaceX / Starlink</div>
     <div class="actor-grid g2">
       <div class="actor a-coral">
         <div class="actor-name">Starlink Mobile (annonce FT)</div>
-        <div class="actor-sub">Vente directe aux consommateurs, en concurrence frontale avec les MNOs. eSIM Starlink comme premier opérateur. Service non seamless (mid-band, pas sous canopée). Cheval de Troie révélé publiquement.</div>
-        <div class="actor-tags"><span class="atag t-coral">Catalyseur positif ASTS</span></div>
+        <div class="actor-date">Annoncé juin 2026 (Financial Times)</div>
+        <div class="actor-sub">Vente directe aux consommateurs, concurrence frontale avec les MNOs. eSIM Starlink comme premier opérateur. Service non seamless (mid-band, pas sous canopée). Cheval de Troie révélé publiquement → catalyseur positif ASTS.</div>
+        <div class="actor-tags"><span class="atag t-teal">Catalyseur positif ASTS</span></div>
       </div>
       <div class="actor a-coral">
         <div class="actor-name">SpaceX — rachat T-Mobile ?</div>
-        <div class="actor-sub">Spéculation TD Cowen rejetée. Blocage DOJ/FCC inévitable. Destruction de valeur : SpaceX à 160× EBITDA, T-Mobile à 8×. SpaceX désormais 60-70% compute leasing (Anthropic 1,25 Md$/mois, Google 920 M$/mois).</div>
+        <div class="actor-date">Spéculation TD Cowen · juin 2026</div>
+        <div class="actor-sub">Spéculation TD Cowen rejetée. Blocage DOJ/FCC inévitable. Destruction de valeur : SpaceX 160× EBITDA vs T-Mobile 8×. SpaceX désormais 60-70% compute leasing (Anthropic 1,25 Md$/mois, Google 920 M$/mois).</div>
         <div class="actor-tags"><span class="atag t-coral">Dead on arrival</span></div>
       </div>
     </div>
   </div>
 
-  <!-- MNOs -->
-  <div class="map-zone" style="border-color: rgba(55,138,221,0.4);">
+  <div class="map-zone" style="border-color: var(--blue-bd);">
     <div class="map-zone-title">🤝 Alliés — MNOs partenaires (60 opérateurs, 3 Md abonnés)</div>
     <div class="actor-grid g4">
       <div class="actor a-blue">
         <div class="actor-name">AT&T</div>
+        <div class="actor-date">Partenariat signé · 2022</div>
         <div class="actor-sub">Partenaire fondateur JV. Spectre 700/800 MHz. FirstNet.</div>
         <div class="actor-tags"><span class="atag t-blue">JV fondateur</span></div>
       </div>
       <div class="actor a-blue">
         <div class="actor-name">Verizon</div>
+        <div class="actor-date">Rejoint la JV · 2023</div>
         <div class="actor-sub">A compris le danger Starlink en premier. Stock $5→$39 à l'annonce.</div>
         <div class="actor-tags"><span class="atag t-blue">JV fondateur</span></div>
       </div>
       <div class="actor a-blue">
         <div class="actor-name">T-Mobile</div>
+        <div class="actor-date">Quitte Starlink · juin/juil. 2026</div>
         <div class="actor-sub">Volte-face : quitte Starlink, rejoint JV. Exclusivité expirée juin/juil. 2026.</div>
         <div class="actor-tags"><span class="atag t-blue">Nouveau ✓</span></div>
       </div>
       <div class="actor a-pink">
         <div class="actor-name">Rakuten Mobile</div>
+        <div class="actor-date">JV Satwork Japan · juin 2026</div>
         <div class="actor-sub">JV Japon (Satwork Japan). Spectre 700 MHz exclusif approuvé MIC.</div>
         <div class="actor-tags"><span class="atag t-pink">J-LEO</span></div>
       </div>
     </div>
   </div>
 
-  <!-- RÉGULATEURS -->
-  <div class="map-zone" style="border-color: rgba(186,117,23,0.4);">
+  <div class="map-zone" style="border-color: var(--amber-bd);">
     <div class="map-zone-title">⚖️ Régulateurs — bouclier contre Starlink à l'international</div>
     <div class="actor-grid g3">
       <div class="actor a-amber">
         <div class="actor-name">FCC (USA)</div>
-        <div class="actor-sub">A autorisé 248 sats ASTS (SCS). AT&T/VZ/TMUS refusent Starlink comme MVNO. Spectre S-band EchoStar accordé à Starlink mais usage international soumis à chaque régulateur national.</div>
+        <div class="actor-date">Autorisation SCS · avr. 2026</div>
+        <div class="actor-sub">A autorisé 248 sats ASTS (SCS). AT&T/VZ/TMUS refusent Starlink comme MVNO. Spectre S-band EchoStar accordé mais usage international soumis à chaque régulateur local.</div>
         <div class="actor-tags"><span class="atag t-teal">Favorable ASTS</span></div>
       </div>
       <div class="actor a-amber">
         <div class="actor-name">Régulateurs UE / monde</div>
-        <div class="actor-sub">Starlink a révélé son intention de concurrencer les champions nationaux → refus des licences S-band attendu. Souveraineté prioritaire. ASTS via JVs locales contourne naturellement.</div>
+        <div class="actor-date">Réaction post-annonce FT · juin 2026</div>
+        <div class="actor-sub">Starlink a révélé son intention de concurrencer les champions nationaux → refus des licences S-band attendu. ASTS via JVs locales 50/50 contourne naturellement.</div>
         <div class="actor-tags"><span class="atag t-coral">Mur pour Starlink</span></div>
       </div>
       <div class="actor a-pink">
         <div class="actor-name">MIC Japon</div>
-        <div class="actor-sub">Approuve spectre 700 MHz Rakuten pour usage satellite. Décision J-LEO fin juin, annonce publique juil.–août. Budget ¥150 Md (~1 Md$). Réunion suivi septembre.</div>
+        <div class="actor-date">Spectre 700 MHz approuvé · juin 2026</div>
+        <div class="actor-sub">Approuve spectre 700 MHz Rakuten pour usage satellite. Décision J-LEO fin juin, annonce publique juil.–août. Budget ¥150 Md (~1 Md$).</div>
         <div class="actor-tags"><span class="atag t-amber">Décision imminente</span></div>
       </div>
     </div>
   </div>
 
-  <!-- MARCHÉ -->
-  <div class="map-zone" style="border-color: rgba(127,119,221,0.4);">
+  <div class="map-zone" style="border-color: var(--purple-bd);">
     <div class="map-zone-title">📊 Dynamique de marché</div>
     <div class="actor-grid g3">
       <div class="actor a-purple">
         <div class="actor-name">Insiders SpaceX — short ASTS</div>
+        <div class="actor-date">Déclenché post-IPO SpaceX · mai 2026</div>
         <div class="actor-sub">~24 M actions shortées (~2,4 Md$) comme hedge du lockup SpaceX. ASTS = proxy naturel de Starlink (connectivité = 69% CA SpaceX). Convertible arb en couverture simultanément.</div>
         <div class="actor-tags"><span class="atag t-purple">Dénouement mi-juil.</span></div>
       </div>
       <div class="actor a-purple">
         <div class="actor-name">Lockup SpaceX — 20 août</div>
-        <div class="actor-sub">20% des actions SpaceX débloquées + 10% si cours maintenu. Insiders vendent SpaceX → couvrent shorts ASTS → pression acheteuse. Début attendu dès mi-juillet.</div>
+        <div class="actor-date">Expiration · 20 août 2026</div>
+        <div class="actor-sub">20% des actions SpaceX débloquées + 10% si cours maintenu. Insiders vendent SpaceX → couvrent shorts ASTS → pression acheteuse technique. Début mi-juillet.</div>
         <div class="actor-tags"><span class="atag t-purple">Catalyseur technique</span></div>
       </div>
       <div class="actor a-purple">
         <div class="actor-name">SpaceX — repositionnement</div>
-        <div class="actor-sub">60-70% CA désormais en location de compute (Anthropic 1,25 Md$/mois, Google 920 M$/mois, Reflection AI 150 M$/mois). Basis risk pour les shorts "space" : ce n'est plus une space company.</div>
+        <div class="actor-date">Deals compute signés · T1–T2 2026</div>
+        <div class="actor-sub">60-70% CA en compute leasing (Anthropic 1,25 Md$/mois, Google 920 M$/mois, Reflection AI 150 M$/mois). Basis risk pour les shorts "space" : ce n'est plus une space company.</div>
         <div class="actor-tags"><span class="atag t-coral">Basis risk</span></div>
       </div>
     </div>
   </div>
 
-  <!-- DÉFENSE -->
   <div class="map-zone">
     <div class="map-zone-title">🛡️ Défense & tech — clients émergents</div>
     <div class="actor-grid g4">
       <div class="actor a-gray">
         <div class="actor-name">Anduril</div>
+        <div class="actor-date">Investissement révélé · 2025–2026</div>
         <div class="actor-sub">Palmer Luckey + employés actionnaires ASTS. Problèmes connectivité drones avec Starlink.</div>
         <div class="actor-tags"><span class="atag t-gray">Défense</span></div>
       </div>
       <div class="actor a-gray">
         <div class="actor-name">Meta / WhatsApp</div>
-        <div class="actor-sub">Tests actifs avec ASTS en Espagne. Visite du site de Midland.</div>
+        <div class="actor-date">Tests actifs en Espagne · 2026</div>
+        <div class="actor-sub">Tests actifs avec ASTS en Espagne. Visite site de Midland, Texas.</div>
         <div class="actor-tags"><span class="atag t-gray">Big Tech</span></div>
       </div>
       <div class="actor a-gray">
         <div class="actor-name">Google</div>
-        <div class="actor-sub">Investisseur stratégique ASTS. Paye SpaceX 920 M$/mois en compute — conflit d'intérêt latent.</div>
+        <div class="actor-date">Investisseur stratégique · depuis 2022</div>
+        <div class="actor-sub">Investisseur stratégique ASTS. Paye SpaceX 920 M$/mois compute — conflit d'intérêt latent.</div>
         <div class="actor-tags"><span class="atag t-gray">Investisseur</span></div>
       </div>
       <div class="actor a-gray">
         <div class="actor-name">Sécurité civile</div>
+        <div class="actor-date">Contrats gov. US · T1–T2 2026</div>
         <div class="actor-sub">Pompiers (Bridger Aerospace) : low-band pénètre la canopée. Contrats gouvernementaux USA. FirstNet Japon.</div>
         <div class="actor-tags"><span class="atag t-gray">Gov / FirstNet</span></div>
       </div>
     </div>
   </div>
 
-  <!-- FLUX -->
   <div class="divider">Flux d'influence clés</div>
   <div class="flows-grid">
     <div class="flow-card">
@@ -821,25 +805,23 @@ nav {
       <div class="flow-from">Starlink annonce attaque terrestre</div>
       <div class="flow-arrow">→</div>
       <div class="flow-to">Régulateurs bloquent licences S-band</div>
-      <div class="flow-desc">Starlink "toxique" à l'international. ASTS via partenariats locaux 50/50 contourne cet obstacle naturellement.</div>
+      <div class="flow-desc">Starlink "toxique" à l'international. ASTS via partenariats locaux 50/50 contourne cet obstacle naturellement dans chaque pays.</div>
     </div>
     <div class="flow-card">
       <div class="flow-from">Lockup SpaceX expire (20 août)</div>
       <div class="flow-arrow">→</div>
       <div class="flow-to">Couverture des shorts ASTS</div>
-      <div class="flow-desc">Insiders vendent SpaceX → couvrent shorts → pression acheteuse technique sur ASTS. Début attendu mi-juillet.</div>
+      <div class="flow-desc">Insiders vendent SpaceX → couvrent shorts → pression acheteuse technique sur ASTS. Début attendu dès mi-juillet.</div>
     </div>
     <div class="flow-card">
       <div class="flow-from">Victoire J-LEO Japon (~1 Md$)</div>
       <div class="flow-arrow">→</div>
       <div class="flow-to">Modèle JV réplicable mondial</div>
-      <div class="flow-desc">Valide le modèle public-privé. Signal pour Brésil, Europe, Inde. SoftBank & NTT Docomo pourraient rejoindre.</div>
+      <div class="flow-desc">Valide le modèle public-privé. Signal pour Brésil, Europe, Inde. SoftBank & NTT Docomo pourraient rejoindre la JV.</div>
     </div>
   </div>
 
-  <div class="footer" style="margin-top:18px">
-    Sources : Podcast "Why SpaceX Insiders are Shorting ASTS" · "Starlink Just Showed Their Hand" · Business Wire · SEC 8-K · MIC Japon · Rakuten Mobile
-  </div>
+  <div class="footer" style="margin-top:18px">Sources : Podcast "Why SpaceX Insiders are Shorting ASTS" · "Starlink Just Showed Their Hand" · Business Wire · SEC 8-K · MIC Japon · Rakuten Mobile</div>
 </div>
 
 <script>
@@ -849,6 +831,19 @@ function showPage(id, btn) {
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
 }
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  localStorage.setItem('asts-theme', isDark ? 'light' : 'dark');
+}
+
+// Restore saved theme
+(function() {
+  const saved = localStorage.getItem('asts-theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+})();
 </script>
 </body>
 </html>

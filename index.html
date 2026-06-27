@@ -401,7 +401,7 @@ nav {
 .rm-sep{width:1px;background:var(--border);flex-shrink:0;margin-top:19px;align-self:stretch;opacity:.5}
 .rm-sep.q{opacity:1;background:var(--border2)}
 .rm-events{width:100%;padding:3px 4px 0;display:flex;flex-direction:column;gap:4px}
-.rm-event{border-radius:7px;padding:6px 8px;font-size:10px;line-height:1.45;color:var(--text2);border:0.5px solid var(--border);cursor:pointer;transition:background .12s;background:var(--bg2)}
+.rm-event{border-radius:7px;padding:6px 8px;font-size:10px;line-height:1.45;color:var(--text2);border:0.5px solid var(--border);cursor:pointer;background:var(--bg2);transition:opacity .18s,transform .12s,box-shadow .12s}
 .rm-event:hover{background:var(--bg3)}
 .rm-event strong{color:var(--text);font-weight:500;font-size:10px}
 .rm-event.done{opacity:.65}
@@ -409,7 +409,13 @@ nav {
 .rm-event.win{background:var(--teal-bg);border-color:var(--teal-bd)}
 .rm-event.fail{background:var(--coral-bg);border-color:var(--coral-bd)}
 .rm-event.new-item{background:var(--pink-bg);border-color:var(--pink-bd)}
-.etag{display:inline-flex;font-size:8px;font-weight:700;padding:1px 5px;border-radius:10px;margin-top:3px;white-space:nowrap;border:0.5px solid}
+.tag-filter-active .rm-event{opacity:.15;transform:none}
+.tag-filter-active .rm-event.tag-match{opacity:1!important;box-shadow:0 0 0 2px var(--match-color,#378ADD);transform:translateY(-1px);z-index:2;position:relative}
+.tag-filter-active .rm-event.done.tag-match{opacity:.85!important}
+.etag{display:inline-flex;font-size:8px;font-weight:700;padding:1px 5px;border-radius:10px;margin-top:3px;white-space:nowrap;border:0.5px solid;cursor:pointer;transition:filter .12s}
+.etag:hover{filter:brightness(.88)}
+.tag-hint{position:fixed;top:12px;left:50%;transform:translateX(-50%);background:var(--bg2);border:0.5px solid var(--border2);border-radius:8px;padding:5px 12px;font-size:11px;font-weight:500;color:var(--text);box-shadow:0 4px 12px rgba(0,0,0,.12);z-index:100;pointer-events:none;opacity:0;transition:opacity .15s;white-space:nowrap}
+.tag-hint.visible{opacity:1}
 .rm-band{margin:12px 0 0;padding:9px 12px;border-radius:9px;border:0.5px solid}
 .rm-band-title{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px}
 .rm-band-events{display:flex;gap:7px;flex-wrap:wrap}
@@ -417,6 +423,8 @@ nav {
 .rm-band-event strong{color:var(--text);font-weight:500}
 .rm-date-sub{font-size:9px;color:var(--text3);margin-bottom:2px}
 </style>
+
+  <div class="tag-hint" id="tag-hint"></div>
 
   <div class="stats">
     <div class="stat"><div class="stat-num c-teal">9</div><div class="stat-label">BlueBirds en orbite</div></div>
@@ -428,156 +436,141 @@ nav {
 
   <div class="rm-wrap">
   <div class="rm-inner">
-  <div class="rm-axis">
+  <div class="rm-axis" id="rm-axis">
 
-    <!-- Jan 2026 -->
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot done"></div><div class="rm-month">Jan.</div><div class="rm-quarter">T1 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event done">✓ Rakuten annonce <strong>Saikyo Satellite Service</strong><br><span class="etag t-pink">J-LEO</span></div>
+        <div class="rm-event done" data-tags="j-leo">✓ Rakuten annonce <strong>Saikyo Satellite Service</strong><br><span class="etag t-pink" data-tag="j-leo">J-LEO</span></div>
       </div>
     </div>
     <div class="rm-sep"></div>
 
-    <!-- Fév 2026 -->
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot done"></div><div class="rm-month">Fév.</div><div class="rm-quarter">T1 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event done">✓ <strong>Antenne BB 6 déployée</strong> — plus grande antenne commerciale LEO<br><span class="etag t-green">Technique</span></div>
+        <div class="rm-event done" data-tags="technique">✓ <strong>Antenne BB 6 déployée</strong> — plus grande antenne commerciale LEO<br><span class="etag t-green" data-tag="technique">Technique</span></div>
       </div>
     </div>
     <div class="rm-sep"></div>
 
-    <!-- Mars 2026 -->
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot done"></div><div class="rm-month">Mars</div><div class="rm-quarter">T1 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event done">✓ <strong>BB 8–29 en production</strong> — 40 sats assemblés au S1<br><span class="etag t-green">Technique</span></div>
+        <div class="rm-event done" data-tags="technique">✓ <strong>BB 8–29 en production</strong> — 40 sats assemblés au S1<br><span class="etag t-green" data-tag="technique">Technique</span></div>
       </div>
     </div>
     <div class="rm-sep q"></div>
 
-    <!-- Avr 2026 -->
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot done"></div><div class="rm-month">Avr.</div><div class="rm-quarter">T2 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event fail done">✗ <strong>BB 7 : échec New Glenn NG-3</strong> — 19 avr. Désorbité. FAA immobilise New Glenn.<br><span class="etag t-coral">Incident</span></div>
-        <div class="rm-event done">✓ <strong>FCC autorise 248 sats SCS</strong> — 700/800 MHz USA<br><span class="etag t-amber">Réglementaire</span></div>
+        <div class="rm-event fail done" data-tags="incident">✗ <strong>BB 7 : échec New Glenn NG-3</strong> — 19 avr. Désorbité. FAA immobilise New Glenn.<br><span class="etag t-coral" data-tag="incident">Incident</span></div>
+        <div class="rm-event done" data-tags="reglementaire">✓ <strong>FCC autorise 248 sats SCS</strong> — 700/800 MHz USA<br><span class="etag t-amber" data-tag="reglementaire">Réglementaire</span></div>
       </div>
     </div>
     <div class="rm-sep"></div>
 
-    <!-- Mai 2026 -->
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot done"></div><div class="rm-month">Mai</div><div class="rm-quarter">T2 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event fail done">↓ <strong>ATH 133$ puis −49%</strong> — ~24 M actions shortées par insiders SpaceX<br><span class="etag t-purple">Marché</span></div>
-        <div class="rm-event done">✓ Record <strong>98,9 Mbps</strong> Block 1 → smartphone non modifié<br><span class="etag t-green">Technique</span></div>
-        <div class="rm-event done">✓ <strong>CA T1 : 14,7 M$</strong> — guidance 150–200 M$ confirmée<br><span class="etag t-purple">Finance</span></div>
-        <div class="rm-event done">✓ <strong>TELUS rejoint</strong> → 60 MNOs, 3 Md abonnés<br><span class="etag t-teal">Commercial</span></div>
-        <div class="rm-event done">✓ Spectre <strong>S-band 10×10 MHz</strong> approuvé au Brésil<br><span class="etag t-amber">Réglementaire</span></div>
+        <div class="rm-event fail done" data-tags="marche">↓ <strong>ATH 133$ puis −49%</strong> — ~24 M actions shortées par insiders SpaceX<br><span class="etag t-purple" data-tag="marche">Marché</span></div>
+        <div class="rm-event done" data-tags="technique">✓ Record <strong>98,9 Mbps</strong> Block 1 → smartphone non modifié<br><span class="etag t-green" data-tag="technique">Technique</span></div>
+        <div class="rm-event done" data-tags="finance">✓ <strong>CA T1 : 14,7 M$</strong> — guidance 150–200 M$ confirmée<br><span class="etag t-purple" data-tag="finance">Finance</span></div>
+        <div class="rm-event done" data-tags="commercial">✓ <strong>TELUS rejoint</strong> → 60 MNOs, 3 Md abonnés<br><span class="etag t-teal" data-tag="commercial">Commercial</span></div>
+        <div class="rm-event done" data-tags="reglementaire">✓ Spectre <strong>S-band 10×10 MHz</strong> approuvé au Brésil<br><span class="etag t-amber" data-tag="reglementaire">Réglementaire</span></div>
       </div>
     </div>
     <div class="rm-sep"></div>
 
-    <!-- Juin 2026 -->
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot done"></div><div class="rm-month">Juin</div><div class="rm-quarter">T2 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event win done">✓ <strong>Lancement BB 8-9-10</strong> — 17 juin, Falcon 9. 9 sats. ~200 Mbps.<br><span class="etag t-blue">Succès</span></div>
-        <div class="rm-event new-item">🆕 <strong>JV Satwork Japan</strong> — Rakuten+AST. MIC approuve spectre 700 MHz.<br><span class="etag t-pink">J-LEO</span></div>
-        <div class="rm-event new-item">🆕 <strong>BB 11-13 annoncés</strong> — 1ère quinzaine août, Falcon 9<br><span class="etag t-blue">Lancement</span></div>
-        <div class="rm-event new-item">🆕 <strong>Starlink → mobile terrestre</strong> (FT) + Charter (Bloomberg)<br><span class="etag t-teal">Catalyseur</span></div>
-        <div class="rm-event hot">⏳ <strong>Décision J-LEO</strong> — interne fin juin. Annonce juil.–août.<br><span class="etag t-pink">En cours</span></div>
+        <div class="rm-event win done" data-tags="lancement">✓ <strong>Lancement BB 8-9-10</strong> — 17 juin, Falcon 9. 9 sats. ~200 Mbps.<br><span class="etag t-blue" data-tag="lancement">Lancement</span></div>
+        <div class="rm-event new-item" data-tags="j-leo">🆕 <strong>JV Satwork Japan</strong> — Rakuten+AST. MIC approuve spectre 700 MHz.<br><span class="etag t-pink" data-tag="j-leo">J-LEO</span></div>
+        <div class="rm-event new-item" data-tags="lancement">🆕 <strong>BB 11-13 annoncés</strong> — 1ère quinzaine août, Falcon 9<br><span class="etag t-blue" data-tag="lancement">Lancement</span></div>
+        <div class="rm-event new-item" data-tags="catalyseur commercial">🆕 <strong>Starlink → mobile terrestre</strong> (FT) + Charter (Bloomberg)<br><span class="etag t-teal" data-tag="catalyseur">Catalyseur</span></div>
+        <div class="rm-event hot" data-tags="j-leo">⏳ <strong>Décision J-LEO</strong> — interne fin juin. Annonce juil.–août.<br><span class="etag t-pink" data-tag="j-leo">J-LEO</span></div>
       </div>
     </div>
     <div class="rm-sep q"></div>
 
-    <!-- Juil 2026 -->
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot near"></div><div class="rm-month">Juil.</div><div class="rm-quarter">T3 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event hot"><strong>Début dénouement shorts</strong> — hedgers couvrent avant lockup SpaceX<br><span class="etag t-purple">Marché</span></div>
-        <div class="rm-event hot"><strong>Annonce J-LEO attendue</strong> — décision publique MIC Japon<br><span class="etag t-pink">J-LEO</span></div>
-        <div class="rm-event"><strong>T-Mobile exclusivité expire</strong> — rejoint JV AT&T-Verizon-ASTS<br><span class="etag t-teal">Commercial</span></div>
+        <div class="rm-event hot" data-tags="marche"><strong>Début dénouement shorts</strong> — hedgers couvrent avant lockup SpaceX<br><span class="etag t-purple" data-tag="marche">Marché</span></div>
+        <div class="rm-event hot" data-tags="j-leo"><strong>Annonce J-LEO attendue</strong> — décision publique MIC Japon<br><span class="etag t-pink" data-tag="j-leo">J-LEO</span></div>
+        <div class="rm-event" data-tags="commercial"><strong>T-Mobile exclusivité expire</strong> — rejoint JV AT&T-Verizon-ASTS<br><span class="etag t-teal" data-tag="commercial">Commercial</span></div>
       </div>
     </div>
     <div class="rm-sep"></div>
 
-    <!-- Août 2026 -->
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot near"></div><div class="rm-month">Août</div><div class="rm-quarter">T3 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event hot"><strong>BB 11-12-13</strong> — Falcon 9, 1ère quinzaine. Constellation → 12 sats.<br><span class="etag t-blue">Lancement</span></div>
-        <div class="rm-event hot"><strong>20 août : lockup SpaceX expire</strong> — 20% actions débloquées. Rebond attendu.<br><span class="etag t-purple">Catalyseur</span></div>
+        <div class="rm-event hot" data-tags="lancement"><strong>BB 11-12-13</strong> — Falcon 9, 1ère quinzaine. Constellation → 12 sats.<br><span class="etag t-blue" data-tag="lancement">Lancement</span></div>
+        <div class="rm-event hot" data-tags="marche catalyseur"><strong>20 août : lockup SpaceX expire</strong> — 20% actions débloquées. Rebond attendu.<br><span class="etag t-purple" data-tag="marche">Marché</span> <span class="etag t-teal" data-tag="catalyseur">Catalyseur</span></div>
       </div>
     </div>
     <div class="rm-sep"></div>
 
-    <!-- Sept 2026 -->
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot future"></div><div class="rm-month">Sept.</div><div class="rm-quarter">T3 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event"><strong>Bêta direct-to-device</strong> — AT&T, Verizon USA<br><span class="etag t-teal">Commercial</span></div>
-        <div class="rm-event"><strong>MIC Japon</strong> — réunion suivi spectre 700 MHz<br><span class="etag t-pink">J-LEO</span></div>
+        <div class="rm-event" data-tags="commercial"><strong>Bêta direct-to-device</strong> — AT&T, Verizon USA<br><span class="etag t-teal" data-tag="commercial">Commercial</span></div>
+        <div class="rm-event" data-tags="j-leo"><strong>MIC Japon</strong> — réunion suivi spectre 700 MHz<br><span class="etag t-pink" data-tag="j-leo">J-LEO</span></div>
       </div>
     </div>
     <div class="rm-sep q"></div>
 
-    <!-- Oct 2026 -->
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot future"></div><div class="rm-month">Oct.</div><div class="rm-quarter">T4 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event"><strong>Prochain lancement F9</strong> — BB 14-15-16<br><span class="etag t-blue">Lancement</span></div>
-        <div class="rm-event"><strong>Couverture continue USA</strong> — dès ~25 Block 2 actifs<br><span class="etag t-teal">Commercial</span></div>
+        <div class="rm-event" data-tags="lancement"><strong>Prochain lancement F9</strong> — BB 14-15-16<br><span class="etag t-blue" data-tag="lancement">Lancement</span></div>
+        <div class="rm-event" data-tags="commercial"><strong>Couverture continue USA</strong> — dès ~25 Block 2 actifs<br><span class="etag t-teal" data-tag="commercial">Commercial</span></div>
       </div>
     </div>
     <div class="rm-sep"></div>
 
-    <!-- Nov 2026 -->
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot future"></div><div class="rm-month">Nov.</div><div class="rm-quarter">T4 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event"><strong>Lancement F9 suivant</strong> — BB 17-18-19<br><span class="etag t-blue">Lancement</span></div>
-        <div class="rm-event"><strong>Brésil JV locale</strong> — MIMO 4 sats simultanés<br><span class="etag t-teal">Commercial</span></div>
+        <div class="rm-event" data-tags="lancement"><strong>Lancement F9 suivant</strong> — BB 17-18-19<br><span class="etag t-blue" data-tag="lancement">Lancement</span></div>
+        <div class="rm-event" data-tags="commercial"><strong>Brésil JV locale</strong> — MIMO 4 sats simultanés<br><span class="etag t-teal" data-tag="commercial">Commercial</span></div>
       </div>
     </div>
     <div class="rm-sep"></div>
 
-    <!-- Déc 2026 -->
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot future"></div><div class="rm-month">Déc.</div><div class="rm-quarter">T4 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event fail"><strong>45 sats fin 2026 non atteignable</strong> — révision officielle<br><span class="etag t-coral">Révisé</span></div>
-        <div class="rm-event"><strong>New Glenn ?</strong> — retour possible si pad réparé<br><span class="etag t-amber">Incertain</span></div>
+        <div class="rm-event fail" data-tags="incident"><strong>45 sats fin 2026 non atteignable</strong> — révision officielle<br><span class="etag t-coral" data-tag="incident">Révisé</span></div>
+        <div class="rm-event" data-tags="lancement"><strong>New Glenn ?</strong> — retour possible si pad réparé<br><span class="etag t-amber" data-tag="lancement">Incertain</span></div>
       </div>
     </div>
     <div class="rm-sep q"></div>
 
-    <!-- Jan 2027 -->
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot future"></div><div class="rm-month">Jan.</div><div class="rm-quarter">Q1 2027</div></div>
       <div class="rm-events">
-        <div class="rm-event"><strong>Blue Origin reprend</strong> — 2-3 missions réussies nécessaires<br><span class="etag t-blue">Lancement</span></div>
+        <div class="rm-event" data-tags="lancement"><strong>Blue Origin reprend</strong> — 2-3 missions réussies nécessaires<br><span class="etag t-blue" data-tag="lancement">Lancement</span></div>
       </div>
     </div>
     <div class="rm-sep"></div>
 
-    <!-- Fév 2027 -->
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot future"></div><div class="rm-month">Fév.</div><div class="rm-quarter">Q1 2027</div></div>
       <div class="rm-events">
-        <div class="rm-event"><strong>~40 sats en orbite</strong> — seuil service continu mondial<br><span class="etag t-teal">Objectif</span></div>
+        <div class="rm-event" data-tags="commercial"><strong>~40 sats en orbite</strong> — seuil service continu mondial<br><span class="etag t-teal" data-tag="commercial">Objectif</span></div>
       </div>
     </div>
     <div class="rm-sep"></div>
 
-    <!-- Mars 2027 -->
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot future"></div><div class="rm-month">Mars</div><div class="rm-quarter">Q1 2027</div></div>
       <div class="rm-events">
-        <div class="rm-event"><strong>~45 sats — objectif révisé</strong> — lancement commercial 18 pays, 2,9 Md personnes<br><span class="etag t-teal">Objectif</span></div>
-        <div class="rm-event"><strong>Rentabilité 2027–2028</strong> — +1,2 Md$ engagements contractuels<br><span class="etag t-purple">Finance</span></div>
+        <div class="rm-event" data-tags="commercial"><strong>~45 sats — objectif révisé</strong> — lancement commercial 18 pays, 2,9 Md personnes<br><span class="etag t-teal" data-tag="commercial">Objectif</span></div>
+        <div class="rm-event" data-tags="finance"><strong>Rentabilité 2027–2028</strong> — +1,2 Md$ engagements contractuels<br><span class="etag t-purple" data-tag="finance">Finance</span></div>
       </div>
     </div>
 
@@ -585,7 +578,6 @@ nav {
   </div>
   </div>
 
-  <!-- Bande J-LEO -->
   <div class="rm-band" style="background:var(--pink-bg);border-color:var(--pink-bd);margin-top:14px">
     <div class="rm-band-title" style="color:var(--pink-t)">🇯🇵 J-LEO Japon · Budget ¥150 Md (~1 Md$) · Décision imminente</div>
     <div class="rm-band-events">
@@ -596,13 +588,66 @@ nav {
     </div>
   </div>
 
-  <!-- Bande lockup -->
   <div class="rm-band" style="background:var(--purple-bg);border-color:var(--purple-bd);margin-top:8px">
     <div class="rm-band-title" style="color:var(--purple-t)">📅 Catalyseur marché — 20 août 2026</div>
     <div style="font-size:11px;color:var(--text2)">Expiration du lockup SpaceX : 20% des actions débloquées. Insiders couvrent leurs shorts ASTS (~24 M actions, ~2,4 Md$) → pression acheteuse technique attendue dès mi-juillet.</div>
   </div>
 
-  <div class="footer" style="margin-top:14px">Mise à jour : 27 juin 2026 · Sources : Business Wire · SEC 8-K · Rakuten Mobile · MIC Japon · Bloomberg · FT · Podcasts AST SpaceMobile Community</div>
+  <div class="footer" style="margin-top:14px">Survole un tag pour mettre en évidence les événements liés · Clic pour verrouiller · Mise à jour : 27 juin 2026</div>
+
+<script>
+const TAG_COLORS = {
+  'j-leo':'#D4537E','lancement':'#378ADD','technique':'#639922',
+  'commercial':'#1D9E75','catalyseur':'#1D9E75','marche':'#7F77DD',
+  'finance':'#7F77DD','reglementaire':'#BA7517','incident':'#D85A30'
+};
+const TAG_LABELS = {
+  'j-leo':'J-LEO','lancement':'Lancement','technique':'Technique',
+  'commercial':'Commercial','catalyseur':'Catalyseur','marche':'Marché',
+  'finance':'Finance','reglementaire':'Réglementaire','incident':'Incident'
+};
+const axis = document.getElementById('rm-axis');
+const hint = document.getElementById('tag-hint');
+let activeTag = null;
+let locked = false;
+
+function activate(tag) {
+  if (activeTag === tag) return;
+  activeTag = tag;
+  const color = TAG_COLORS[tag] || '#378ADD';
+  axis.classList.add('tag-filter-active');
+  axis.style.setProperty('--match-color', color);
+  document.querySelectorAll('.rm-event').forEach(ev => {
+    const tags = (ev.dataset.tags || '').split(' ');
+    ev.classList.toggle('tag-match', tags.includes(tag));
+  });
+  hint.textContent = TAG_LABELS[tag] || tag;
+  hint.classList.add('visible');
+}
+
+function deactivate() {
+  if (locked) return;
+  activeTag = null;
+  axis.classList.remove('tag-filter-active');
+  document.querySelectorAll('.rm-event').forEach(ev => ev.classList.remove('tag-match'));
+  hint.classList.remove('visible');
+}
+
+document.querySelectorAll('.etag[data-tag]').forEach(tag => {
+  tag.addEventListener('mouseenter', () => { if (!locked) activate(tag.dataset.tag); });
+  tag.addEventListener('mouseleave', () => { if (!locked) deactivate(); });
+  tag.addEventListener('click', e => {
+    e.stopPropagation();
+    if (locked && activeTag === tag.dataset.tag) {
+      locked = false; deactivate();
+    } else {
+      locked = true; activate(tag.dataset.tag);
+    }
+  });
+});
+
+document.addEventListener('click', () => { locked = false; deactivate(); });
+</script>
 </div>
 
 <!-- ══════════════════════════════════════

@@ -402,7 +402,7 @@ nav {
 .rm-sep.q{opacity:1;background:var(--border2)}
 .rm-events{width:100%;padding:3px 4px 0;display:flex;flex-direction:column;gap:4px}
 .rm-event{border-radius:7px;padding:6px 8px;font-size:10px;line-height:1.45;color:var(--text2);border:0.5px solid var(--border);cursor:pointer;background:var(--bg2);transition:opacity .18s,transform .12s,box-shadow .12s}
-.rm-event:hover{background:var(--bg3)}
+.rm-event:hover{background:var(--bg3);transform:translateY(-1px);box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .rm-event strong{color:var(--text);font-weight:500;font-size:10px}
 .rm-event.done{opacity:.6}
 .tag-filter-active .rm-event{opacity:.12;transform:none}
@@ -426,13 +426,53 @@ nav {
 .tag-hint.visible{opacity:1}
 .status-legend{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
 .status-legend span{font-size:11px;color:var(--text2)}
+.rm-stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.rm-stat{background:var(--bg2);border:0.5px solid var(--border);border-radius:8px;padding:8px 12px;flex:1;min-width:90px}
+.rm-stat-num{font-size:17px;font-weight:500;letter-spacing:-.02em}
+.rm-stat-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;margin-top:1px}
+.c-teal{color:#1D9E75}.c-coral{color:#D85A30}.c-purple{color:#7F77DD}.c-amber{color:#BA7517}
 .rm-band{margin:12px 0 0;padding:9px 12px;border-radius:9px;border:0.5px solid}
 .rm-band-title{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px}
 .rm-band-events{display:flex;gap:7px;flex-wrap:wrap}
 .rm-band-event{flex:1;min-width:140px;background:var(--bg2);border-radius:7px;padding:6px 9px;font-size:10px;line-height:1.4;color:var(--text2);border:0.5px solid}
 .rm-band-event strong{color:var(--text);font-weight:500}
 .rm-date-sub{font-size:9px;color:var(--text3);margin-bottom:2px}
+
+/* Modal */
+.rm-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .18s}
+.rm-modal-overlay.open{opacity:1;pointer-events:all}
+.rm-modal{background:var(--bg2);border:0.5px solid var(--border2);border-radius:14px;width:100%;max-width:480px;box-shadow:0 20px 60px rgba(0,0,0,.25);transform:translateY(8px);transition:transform .18s;overflow:hidden}
+.rm-modal-overlay.open .rm-modal{transform:translateY(0)}
+.rm-modal-header{padding:16px 18px 12px;border-bottom:0.5px solid var(--border)}
+.rm-modal-meta{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.rm-modal-title{font-size:15px;font-weight:600;color:var(--text);line-height:1.35}
+.rm-modal-body{padding:14px 18px 18px;display:flex;flex-direction:column;gap:10px}
+.rm-modal-desc{font-size:13px;color:var(--text2);line-height:1.6}
+.rm-modal-row{display:flex;gap:8px;flex-wrap:wrap}
+.rm-modal-kv{background:var(--bg3);border-radius:8px;padding:8px 12px;flex:1;min-width:120px}
+.rm-modal-kv-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.rm-modal-kv-val{font-size:12px;font-weight:500;color:var(--text)}
+.rm-modal-close{position:absolute;top:14px;right:16px;width:28px;height:28px;border-radius:7px;border:0.5px solid var(--border2);background:var(--bg3);color:var(--text2);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .12s}
+.rm-modal-close:hover{background:var(--border)}
+.rm-modal-source{font-size:10px;color:var(--text3);margin-top:4px}
+.rm-modal-source a{color:var(--teal);text-decoration:none}
 </style>
+
+  <!-- Modal -->
+  <div class="rm-modal-overlay" id="rm-modal-overlay" onclick="closeModal(event)">
+    <div class="rm-modal" id="rm-modal">
+      <button class="rm-modal-close" onclick="closeModalDirect()">✕</button>
+      <div class="rm-modal-header">
+        <div class="rm-modal-meta" id="modal-meta"></div>
+        <div class="rm-modal-title" id="modal-title"></div>
+      </div>
+      <div class="rm-modal-body">
+        <div class="rm-modal-desc" id="modal-desc"></div>
+        <div class="rm-modal-row" id="modal-kvs"></div>
+        <div class="rm-modal-source" id="modal-source"></div>
+      </div>
+    </div>
+  </div>
 
   <div class="tag-hint" id="tag-hint"></div>
 
@@ -456,7 +496,14 @@ nav {
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot done"></div><div class="rm-month">Jan.</div><div class="rm-quarter">T1 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event done" data-tags="j-leo"><span class="ev-status s-done">Done</span><strong>Saikyo Satellite Service</strong> annoncé par Rakuten<br><span class="etag t-pink" data-tag="j-leo">J-LEO</span></div>
+        <div class="rm-event done" data-tags="j-leo"
+          data-title="Rakuten annonce le Saikyo Satellite Service"
+          data-status="done" data-date="Janvier 2026" data-tag-label="J-LEO"
+          data-desc="Rakuten Mobile annonce officiellement le lancement de son service satellitaire commercial au Japon en Q4 2026, propulsé par les satellites AST SpaceMobile. Le service sera commercialisé sous le nom Saikyo Satellite Service et ciblera les zones isolées (îles, montagne) ainsi que les communications d'urgence en cas de séisme."
+          data-kv='[{"l":"Partenaire","v":"Rakuten Mobile + AST SpaceMobile"},{"l":"Lancement cible","v":"Q4 2026"},{"l":"Marché","v":"Japon — zones isolées & urgences"}]'
+          data-source="Communiqué Rakuten Mobile · Jan. 2026">
+          <span class="ev-status s-done">Done</span><strong>Saikyo Satellite Service</strong> annoncé par Rakuten<br><span class="etag t-pink" data-tag="j-leo">J-LEO</span>
+        </div>
       </div>
     </div>
     <div class="rm-sep"></div>
@@ -464,7 +511,14 @@ nav {
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot done"></div><div class="rm-month">Fév.</div><div class="rm-quarter">T1 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event done" data-tags="technique"><span class="ev-status s-done">Done</span><strong>Antenne BB 6 déployée</strong> — plus grande antenne LEO commerciale<br><span class="etag t-green" data-tag="technique">Technique</span></div>
+        <div class="rm-event done" data-tags="technique"
+          data-title="Antenne BlueBird 6 déployée avec succès"
+          data-status="done" data-date="Février 2026" data-tag-label="Technique"
+          data-desc="Le déploiement de l'antenne du satellite BlueBird 6 est confirmé en orbite. Il s'agit de la plus grande antenne commerciale jamais déployée en orbite basse (LEO), avec une superficie d'environ 2 400 sq ft (~223 m²). Cette étape valide la capacité d'ASTS à déployer ses antennes de grande dimension, clé pour atteindre les débits Block 2 (~200 Mbps)."
+          data-kv='[{"l":"Superficie antenne","v":"~2 400 sq ft (223 m²)"},{"l":"Record","v":"Plus grande antenne commerciale LEO"},{"l":"Significance","v":"Validation Block 2"}]'
+          data-source="SEC 8-K · Business Wire · Fév. 2026">
+          <span class="ev-status s-done">Done</span><strong>Antenne BB 6 déployée</strong> — plus grande antenne LEO<br><span class="etag t-green" data-tag="technique">Technique</span>
+        </div>
       </div>
     </div>
     <div class="rm-sep"></div>
@@ -472,7 +526,14 @@ nav {
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot done"></div><div class="rm-month">Mars</div><div class="rm-quarter">T1 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event done" data-tags="technique"><span class="ev-status s-done">Done</span><strong>BB 8–29 en production</strong> — 40 sats assemblés au S1<br><span class="etag t-green" data-tag="technique">Technique</span></div>
+        <div class="rm-event done" data-tags="technique"
+          data-title="BB 8–29 en production — 40 satellites assemblés"
+          data-status="done" data-date="Mars 2026" data-tag-label="Technique"
+          data-desc="AST SpaceMobile confirme que les satellites BlueBird 8 à 29 sont en cours de production dans leur usine de Midland, Texas. L'équivalent de 40 unités de microns (composants critiques) est assemblé à la fin du S1. La cadence de production vise 6 satellites par mois."
+          data-kv='[{"l":"Satellites en production","v":"BB 8 à BB 29"},{"l":"Usine","v":"Midland, Texas"},{"l":"Cadence","v":"~6 sats/mois"}]'
+          data-source="Call résultats Q4 2025 · Mars 2026">
+          <span class="ev-status s-done">Done</span><strong>BB 8–29 en production</strong> — 40 sats assemblés<br><span class="etag t-green" data-tag="technique">Technique</span>
+        </div>
       </div>
     </div>
     <div class="rm-sep q"></div>
@@ -480,8 +541,22 @@ nav {
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot done"></div><div class="rm-month">Avr.</div><div class="rm-quarter">T2 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event done" data-tags="incident"><span class="ev-status s-done">Done</span><strong>BB 7 : échec NG-3</strong> — 19 avr. FAA immobilise New Glenn<br><span class="etag t-coral" data-tag="incident">Incident</span></div>
-        <div class="rm-event done" data-tags="reglementaire"><span class="ev-status s-done">Done</span><strong>FCC autorise 248 sats SCS</strong><br><span class="etag t-amber" data-tag="reglementaire">Réglementaire</span></div>
+        <div class="rm-event done" data-tags="incident"
+          data-title="Échec du lancement BlueBird 7 — New Glenn NG-3"
+          data-status="done" data-date="19 avril 2026" data-tag-label="Incident"
+          data-desc="Le satellite BlueBird 7 est perdu lors du lancement sur New Glenn NG-3. Une panne moteur du 2e étage place le satellite sur une orbite irrécupérable. Le satellite est désorbité. La FAA immobilise temporairement New Glenn le temps de l'enquête. La perte est couverte par l'assurance. ASTS pivote vers SpaceX Falcon 9 pour les prochains lancements."
+          data-kv='[{"l":"Cause","v":"Panne moteur 2e étage NG-3"},{"l":"Impact","v":"BB 7 désorbité"},{"l":"Conséquence","v":"FAA immobilise New Glenn"},{"l":"Couverture","v":"Assurance confirmée"}]'
+          data-source="SEC 8-K · Business Wire · 19 avr. 2026">
+          <span class="ev-status s-done">Done</span><strong>BB 7 : échec New Glenn NG-3</strong> — 19 avr.<br><span class="etag t-coral" data-tag="incident">Incident</span>
+        </div>
+        <div class="rm-event done" data-tags="reglementaire"
+          data-title="FCC autorise le déploiement de 248 satellites SCS"
+          data-status="done" data-date="Avril 2026" data-tag-label="Réglementaire"
+          data-desc="La FCC accorde à AST SpaceMobile l'autorisation de déployer jusqu'à 248 satellites pour le service Supplemental Coverage from Space (SCS) aux États-Unis sur les bandes 700 et 800 MHz. Cela couvre les partenariats AT&T, Verizon et FirstNet (réseau d'urgence national américain)."
+          data-kv='[{"l":"Satellites autorisés","v":"248 satellites LEO"},{"l":"Bandes","v":"700 MHz & 800 MHz"},{"l":"Partenaires","v":"AT&T, Verizon, FirstNet"}]'
+          data-source="FCC Order · Avr. 2026">
+          <span class="ev-status s-done">Done</span><strong>FCC autorise 248 sats SCS</strong><br><span class="etag t-amber" data-tag="reglementaire">Réglementaire</span>
+        </div>
       </div>
     </div>
     <div class="rm-sep"></div>
@@ -489,23 +564,93 @@ nav {
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot done"></div><div class="rm-month">Mai</div><div class="rm-quarter">T2 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event done" data-tags="marche"><span class="ev-status s-done">Done</span><strong>ATH 133$ puis −49%</strong> — ~24 M actions shortées<br><span class="etag t-purple" data-tag="marche">Marché</span></div>
-        <div class="rm-event done" data-tags="technique"><span class="ev-status s-done">Done</span><strong>Record 98,9 Mbps</strong> Block 1<br><span class="etag t-green" data-tag="technique">Technique</span></div>
-        <div class="rm-event done" data-tags="finance"><span class="ev-status s-done">Done</span><strong>CA T1 : 14,7 M$</strong> — guidance 150–200 M$<br><span class="etag t-purple" data-tag="finance">Finance</span></div>
-        <div class="rm-event done" data-tags="commercial"><span class="ev-status s-done">Done</span><strong>TELUS rejoint</strong> → 60 MNOs, 3 Md abonnés<br><span class="etag t-teal" data-tag="commercial">Commercial</span></div>
-        <div class="rm-event done" data-tags="reglementaire"><span class="ev-status s-done">Done</span><strong>S-band Brésil approuvé</strong><br><span class="etag t-amber" data-tag="reglementaire">Réglementaire</span></div>
+        <div class="rm-event done" data-tags="marche"
+          data-title="Chute de -49% depuis l'ATH de 133$"
+          data-status="done" data-date="Mai 2026" data-tag-label="Marché"
+          data-desc="Le titre ASTS atteint un ATH à 133$ dans l'euphorie pré-IPO SpaceX, puis chute de -49%. L'analyse montre que les insiders SpaceX (VCs, employés) shortent ~24 millions d'actions ASTS (~2,4 Md$) comme hedge de leur position lockée dans SpaceX. Starlink représentant 69% du CA de SpaceX, ASTS est le proxy short naturel du secteur connectivité spatiale."
+          data-kv='[{"l":"ATH atteint","v":"133$"},{"l":"Chute","v":"-49%"},{"l":"Short estimé","v":"~24 M actions (~2,4 Md$)"},{"l":"Dénouement attendu","v":"Mi-juillet 2026"}]'
+          data-source="Podcast 'Why SpaceX Insiders are Shorting ASTS' · Mai 2026">
+          <span class="ev-status s-done">Done</span><strong>ATH 133$ puis −49%</strong> — ~24 M actions shortées<br><span class="etag t-purple" data-tag="marche">Marché</span>
+        </div>
+        <div class="rm-event done" data-tags="technique"
+          data-title="Record de débit : 98,9 Mbps depuis un satellite Block 1"
+          data-status="done" data-date="Mai 2026" data-tag-label="Technique"
+          data-desc="AST SpaceMobile établit un nouveau record de débit en pic : 98,9 Mbps atteints depuis un satellite BlueBird Block 1 vers un smartphone non modifié en eaux internationales. Ce record valide la technologie Block 1 et donne confiance dans la capacité des Block 2 à atteindre ~200 Mbps."
+          data-kv='[{"l":"Débit pic","v":"98,9 Mbps"},{"l","Satellite","v":"Block 1"},{"l":"Terminal","v":"Smartphone non modifié"}]'
+          data-source="Business Wire · Mai 2026">
+          <span class="ev-status s-done">Done</span><strong>Record 98,9 Mbps</strong> Block 1<br><span class="etag t-green" data-tag="technique">Technique</span>
+        </div>
+        <div class="rm-event done" data-tags="finance"
+          data-title="Résultats T1 2026 — CA 14,7 M$"
+          data-status="done" data-date="Mai 2026" data-tag-label="Finance"
+          data-desc="ASTS publie ses résultats du T1 2026 : chiffre d'affaires de 14,7 M$, en dessous du consensus mais la direction confirme la guidance annuelle de 150 à 200 M$ pour 2026. Plus de 1,2 Md$ d'engagements contractuels commerciaux sont déjà signés avec les opérateurs partenaires."
+          data-kv='[{"l":"CA T1 2026","v":"14,7 M$"},{"l":"Guidance 2026","v":"150–200 M$"},{"l":"Engagements","v":"+1,2 Md$"}]'
+          data-source="SEC 10-Q · Call résultats T1 2026">
+          <span class="ev-status s-done">Done</span><strong>CA T1 : 14,7 M$</strong> — guidance confirmée<br><span class="etag t-purple" data-tag="finance">Finance</span>
+        </div>
+        <div class="rm-event done" data-tags="commercial"
+          data-title="TELUS (Canada) rejoint l'écosystème — 60 MNO partenaires"
+          data-status="done" data-date="Mai 2026" data-tag-label="Commercial"
+          data-desc="L'opérateur canadien TELUS rejoint le réseau de partenaires MNO d'AST SpaceMobile, portant le total à 60 opérateurs partenaires dans le monde, représentant collectivement plus de 3 milliards d'abonnés. TELUS utilisera le réseau ASTS pour couvrir les zones rurales et éloignées du Canada."
+          data-kv='[{"l":"Nouveau partenaire","v":"TELUS (Canada)"},{"l":"Total MNO","v":"60 opérateurs"},{"l":"Abonnés couverts","v":"3+ Md"}]'
+          data-source="Communiqué TELUS · Mai 2026">
+          <span class="ev-status s-done">Done</span><strong>TELUS rejoint</strong> → 60 MNOs, 3 Md abonnés<br><span class="etag t-teal" data-tag="commercial">Commercial</span>
+        </div>
+        <div class="rm-event done" data-tags="reglementaire"
+          data-title="Spectre S-band 10×10 MHz approuvé au Brésil"
+          data-status="done" data-date="Mai 2026" data-tag-label="Réglementaire"
+          data-desc="L'Anatel (régulateur brésilien) approuve l'utilisation du spectre S-band 10×10 MHz pour le service direct-to-cell d'AST SpaceMobile au Brésil. ASTS est en train de constituer une JV locale avec 1 à 2 opérateurs brésiliens. Des embauches locales sont en cours, signal d'un déploiement commercial imminent dans le pays."
+          data-kv='[{"l":"Spectre","v":"S-band 10×10 MHz"},{"l":"Régulateur","v":"Anatel (Brésil)"},{"l":"Prochaine étape","v":"JV locale avec MNO brésilien"}]'
+          data-source="Anatel · Mai 2026">
+          <span class="ev-status s-done">Done</span><strong>S-band Brésil approuvé</strong><br><span class="etag t-amber" data-tag="reglementaire">Réglementaire</span>
+        </div>
       </div>
     </div>
     <div class="rm-sep"></div>
 
     <div class="rm-col">
-      <div class="rm-head"><div class="rm-dot done"></div><div class="rm-month">Juin</div><div class="rm-quarter">T2 2026</div></div>
+      <div class="rm-head"><div class="rm-dot now"></div><div class="rm-month">Juin</div><div class="rm-quarter">T2 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event done" data-tags="lancement"><span class="ev-status s-done">Done</span><strong>Lancement BB 8-9-10</strong> — 17 juin, Falcon 9. 9 sats.<br><span class="etag t-blue" data-tag="lancement">Lancement</span></div>
-        <div class="rm-event" data-tags="j-leo"><span class="ev-status s-done">Done</span><strong>JV Satwork Japan</strong> — MIC approuve spectre 700 MHz<br><span class="etag t-pink" data-tag="j-leo">J-LEO</span></div>
-        <div class="rm-event" data-tags="lancement"><span class="ev-status s-done">Done</span><strong>BB 11-13 annoncés</strong> — août, Falcon 9<br><span class="etag t-blue" data-tag="lancement">Lancement</span></div>
-        <div class="rm-event" data-tags="catalyseur commercial"><span class="ev-status s-done">Done</span><strong>Starlink → mobile terrestre</strong> + Charter<br><span class="etag t-teal" data-tag="catalyseur">Catalyseur</span></div>
-        <div class="rm-event" data-tags="j-leo"><span class="ev-status s-coming">Coming</span><strong>Décision J-LEO</strong> — annonce juil.–août<br><span class="etag t-pink" data-tag="j-leo">J-LEO</span></div>
+        <div class="rm-event done" data-tags="lancement"
+          data-title="Lancement réussi BlueBird 8, 9, 10 (Block 2)"
+          data-status="done" data-date="17 juin 2026" data-tag-label="Lancement"
+          data-desc="Les trois premiers satellites BlueBird Block 2 sont lancés avec succès sur Falcon 9 depuis Cap Canaveral à 2h39 EDT. La constellation atteint 9 satellites en orbite. Les Block 2 embarquent des antennes de ~2 400 sq ft et la puce AST5000 (10 GHz de bande passante par satellite). Le débit pic cible est de ~200 Mbps, soit le double des Block 1."
+          data-kv='[{"l":"Date","v":"17 juin 2026, 2h39 EDT"},{"l":"Lanceur","v":"Falcon 9 — Cap Canaveral"},{"l":"Constellation","v":"9 satellites actifs"},{"l":"Débit cible","v":"~200 Mbps pic"}]'
+          data-source="Business Wire · 17 juin 2026">
+          <span class="ev-status s-done">Done</span><strong>Lancement BB 8-9-10</strong> — 17 juin, Falcon 9<br><span class="etag t-blue" data-tag="lancement">Lancement</span>
+        </div>
+        <div class="rm-event" data-tags="j-leo"
+          data-title="JV Satwork Japan officialisée + MIC approuve spectre 700 MHz"
+          data-status="done" data-date="Juin 2026" data-tag-label="J-LEO"
+          data-desc="Rakuten Mobile et AST SpaceMobile officialisent leur joint-venture au Japon, baptisée Satwork Japan (ou Sakura Japan). Le MIC (Ministère des Affaires intérieures japonais) approuve simultanément l'utilisation du spectre 700 MHz de Rakuten pour usage satellitaire. Ce spectre low-band est exclusif à Rakuten et pénètre mieux les bâtiments et décombres en cas de séisme — avantage décisif vs le mid-band de Starlink/KDDI."
+          data-kv='[{"l":"JV","v":"Satwork Japan (Rakuten + AST)"},{"l":"Spectre","v":"700 MHz low-band (exclusif Rakuten)"},{"l":"Avantage","v":"Pénètre décombres vs mid-band Starlink"},{"l":"Réunion suivi","v":"Septembre 2026"}]'
+          data-source="MIC Japon · Juin 2026">
+          <span class="ev-status s-done">Done</span><strong>JV Satwork Japan</strong> — MIC 700 MHz<br><span class="etag t-pink" data-tag="j-leo">J-LEO</span>
+        </div>
+        <div class="rm-event" data-tags="lancement"
+          data-title="BlueBird 11, 12, 13 annoncés pour la 1ère quinzaine août"
+          data-status="done" data-date="23 juin 2026" data-tag-label="Lancement"
+          data-desc="AST SpaceMobile annonce officiellement le prochain lancement de BlueBird 11, 12 et 13 sur Falcon 9, prévu dans la première quinzaine d'août 2026 depuis Cap Canaveral. La production est confirmée jusqu'à BB 37. Après ce lancement, la constellation comptera 12 satellites Block 2 en orbite."
+          data-kv='[{"l":"Lancement","v":"1ère quinzaine août 2026"},{"l":"Lanceur","v":"Falcon 9 — Cap Canaveral"},{"l":"Post-lancement","v":"12 satellites en orbite"},{"l":"Production","v":"Confirmée jusqu'à BB 37"}]'
+          data-source="Business Wire · 23 juin 2026">
+          <span class="ev-status s-done">Done</span><strong>BB 11-13 annoncés</strong> — août, Falcon 9<br><span class="etag t-blue" data-tag="lancement">Lancement</span>
+        </div>
+        <div class="rm-event" data-tags="catalyseur commercial"
+          data-title="Starlink annonce l'attaque du marché mobile + discussions Charter"
+          data-status="done" data-date="Juin 2026" data-tag-label="Catalyseur"
+          data-desc="Le Financial Times révèle que Starlink prévoit de vendre directement aux consommateurs en concurrence avec les MNOs. Bloomberg révèle ensuite des discussions Starlink-Charter Communications (câblo US, 100 Md$ de dette). Ces annonces sont analysées comme des moves stratégiques désespérés : Starlink essaie de montrer qu'il a des alternatives face au départ de T-Mobile. En réalité, ces révélations galvanisent tous les MNOs mondiaux vers ASTS comme contre-actif."
+          data-kv='[{"l":"Sources","v":"Financial Times + Bloomberg"},{"l":"Charter","v":"100 Md$ dette, 18 Md$ equity"},{"l":"Impact ASTS","v":"Valeur stratégique ↑ pour tous les MNOs"},{"l":"T-Mobile","v":"Quitte Starlink, rejoint JV ASTS"}]'
+          data-source="FT + Bloomberg · Juin 2026">
+          <span class="ev-status s-done">Done</span><strong>Starlink → mobile terrestre</strong> + Charter<br><span class="etag t-teal" data-tag="catalyseur">Catalyseur</span>
+        </div>
+        <div class="rm-event" data-tags="j-leo"
+          data-title="Décision J-LEO imminente — annonce publique juillet–août"
+          data-status="coming" data-date="Fin juin – Août 2026" data-tag-label="J-LEO"
+          data-desc="La décision interne du gouvernement japonais sur le projet J-LEO est attendue avant fin juin 2026. Deux finalistes s'affrontent : le consortium Rakuten Mobile + AST SpaceMobile vs KDDI + SpaceX (Starlink). Avantages ASTS : technologie low-band (pénètre les décombres en cas de séisme), fonctionne avec les téléphones existants non modifiés, et possibilité de lancement sur H3 Mitsubishi (soutien à l'industrie japonaise). Budget du contrat : ~1 Md$."
+          data-kv='[{"l":"Finalistes","v":"Rakuten+ASTS vs KDDI+SpaceX"},{"l":"Budget contrat","v":"~1 Md$ (¥150 Md)"},{"l":"Avantage ASTS","v":"Low-band + tél. existants + H3"},{"l":"Annonce publique","v":"Juillet–Août 2026"}]'
+          data-source="MIC Japon · Podcasts AST Community · Juin 2026">
+          <span class="ev-status s-coming">Coming</span><strong>Décision J-LEO</strong> — annonce juil.–août<br><span class="etag t-pink" data-tag="j-leo">J-LEO</span>
+        </div>
       </div>
     </div>
     <div class="rm-sep q"></div>
@@ -513,9 +658,30 @@ nav {
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot near"></div><div class="rm-month">Juil.</div><div class="rm-quarter">T3 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event" data-tags="marche"><span class="ev-status s-coming">Coming</span><strong>Début dénouement shorts</strong><br><span class="etag t-purple" data-tag="marche">Marché</span></div>
-        <div class="rm-event" data-tags="j-leo"><span class="ev-status s-coming">Coming</span><strong>Annonce J-LEO publique</strong><br><span class="etag t-pink" data-tag="j-leo">J-LEO</span></div>
-        <div class="rm-event" data-tags="commercial"><span class="ev-status s-coming">Coming</span><strong>T-Mobile exclusivité expire</strong><br><span class="etag t-teal" data-tag="commercial">Commercial</span></div>
+        <div class="rm-event" data-tags="marche"
+          data-title="Début du dénouement des positions short sur ASTS"
+          data-status="coming" data-date="Mi-juillet 2026" data-tag-label="Marché"
+          data-desc="Avec l'expiration du lockup SpaceX prévue le 20 août, les insiders qui shortaient ASTS comme hedge commencent à couvrir leurs positions dès mi-juillet pour ne pas être pris de court. Ce dénouement crée une pression acheteuse technique sur le titre. Le short estimé est de ~24 M actions (~2,4 Md$), ce qui représente un catalyseur significatif."
+          data-kv='[{"l":"Short estimé","v":"~24 M actions (~2,4 Md$)"},{"l":"Trigger","v":"Lockup SpaceX expire 20 août"},{"l":"Début dénouement","v":"Mi-juillet 2026"}]'
+          data-source="Podcast 'Why SpaceX Insiders are Shorting ASTS' · 2026">
+          <strong>Début dénouement shorts</strong><br><span class="etag t-purple" data-tag="marche">Marché</span>
+        </div>
+        <div class="rm-event" data-tags="j-leo"
+          data-title="Annonce publique J-LEO attendue"
+          data-status="coming" data-date="Juillet–Août 2026" data-tag-label="J-LEO"
+          data-desc="Après la décision interne attendue fin juin, l'annonce publique du gagnant du projet J-LEO est attendue entre juillet et août 2026. En cas de victoire d'ASTS/Rakuten, c'est l'équivalent du 'FirstNet japonais' qui serait activé — un contrat gouvernemental d'~1 Md$ avec obligation de couverture nationwide en appel vidéo et communications d'urgence d'ici mars 2029. SoftBank et NTT Docomo pourraient rejoindre la JV."
+          data-kv='[{"l":"Annonce","v":"Juillet–Août 2026"},{"l":"Valeur contrat","v":"~1 Md$ (¥150 Md)"},{"l":"Deadline couverture","v":"Mars 2029"},{"l":"Si victoire","v":"SoftBank & NTT Docomo pourraient rejoindre"}]'
+          data-source="MIC Japon · Podcasts AST Community">
+          <strong>Annonce J-LEO publique</strong><br><span class="etag t-pink" data-tag="j-leo">J-LEO</span>
+        </div>
+        <div class="rm-event" data-tags="commercial"
+          data-title="Expiration de l'exclusivité T-Mobile avec Starlink"
+          data-status="coming" data-date="Juillet 2026" data-tag-label="Commercial"
+          data-desc="L'accord d'exclusivité entre T-Mobile et Starlink pour le service direct-to-cell expire en juillet 2026. T-Mobile rejoint officiellement la joint-venture AT&T + Verizon + ASTS. Les 3 plus grands opérateurs américains sont ainsi réunis dans le camp ASTS — un signal fort pour tous les autres MNOs hésitants dans le monde."
+          data-kv='[{"l":"Événement","v":"Exclusivité T-Mobile/Starlink expire"},{"l":"Conséquence","v":"T-Mobile rejoint JV AT&T+VZ+ASTS"},{"l":"Signal","v":"3 top carriers US dans le camp ASTS"}]'
+          data-source="Podcast 'Starlink Just Showed Their Hand' · 2026">
+          <strong>T-Mobile exclusivité expire</strong><br><span class="etag t-teal" data-tag="commercial">Commercial</span>
+        </div>
       </div>
     </div>
     <div class="rm-sep"></div>
@@ -523,8 +689,22 @@ nav {
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot near"></div><div class="rm-month">Août</div><div class="rm-quarter">T3 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event" data-tags="lancement"><span class="ev-status s-coming">Coming</span><strong>BB 11-12-13</strong> — Falcon 9, 1ère quinzaine<br><span class="etag t-blue" data-tag="lancement">Lancement</span></div>
-        <div class="rm-event" data-tags="marche catalyseur"><span class="ev-status s-coming">Coming</span><strong>20 août : lockup SpaceX expire</strong><br><span class="etag t-purple" data-tag="marche">Marché</span> <span class="etag t-teal" data-tag="catalyseur">Catalyseur</span></div>
+        <div class="rm-event" data-tags="lancement"
+          data-title="Lancement BlueBird 11, 12, 13 sur Falcon 9"
+          data-status="coming" data-date="1ère quinzaine août 2026" data-tag-label="Lancement"
+          data-desc="Le prochain lancement d'ASTS est prévu dans la première quinzaine d'août 2026 depuis Cap Canaveral sur Falcon 9. Les satellites BB 11, 12 et 13 sont des Block 2 avec les antennes de grande superficie et la puce AST5000. Après ce lancement, la constellation comptera 12 satellites Block 2 actifs, rapprochant ASTS du seuil de service continu (~25 sats)."
+          data-kv='[{"l":"Date","v":"1ère quinzaine août 2026"},{"l":"Lanceur","v":"Falcon 9 — Cap Canaveral"},{"l":"Post-lancement","v":"12 satellites actifs"},{"l":"Seuil service continu","v":"~25 satellites"}]'
+          data-source="Business Wire · 23 juin 2026">
+          <strong>BB 11-12-13</strong> — Falcon 9, 1ère quinzaine<br><span class="etag t-blue" data-tag="lancement">Lancement</span>
+        </div>
+        <div class="rm-event" data-tags="marche catalyseur"
+          data-title="Expiration du lockup SpaceX — catalyseur technique majeur"
+          data-status="coming" data-date="20 août 2026" data-tag-label="Marché"
+          data-desc="Le 20 août 2026, 20% des actions SpaceX sont débloquées pour les insiders (et potentiellement 10% supplémentaires si le cours est maintenu). Les insiders qui shortaient ASTS comme hedge couvrent leurs positions → pression acheteuse technique sur ASTS. Ce catalyseur mécanique est distinct des fondamentaux : même sans nouvelle opérationnelle, le simple dénouement du short peut provoquer un rebond significatif."
+          data-kv='[{"l":"Date","v":"20 août 2026"},{"l":"Actions débloquées","v":"20% (+10% sous conditions)"},{"l":"Short à couvrir","v":"~24 M actions ASTS"},{"l":"Nature","v":"Catalyseur technique (mécanique)"}]'
+          data-source="Podcast 'Why SpaceX Insiders are Shorting ASTS' · 2026">
+          <strong>20 août : lockup SpaceX expire</strong><br><span class="etag t-purple" data-tag="marche">Marché</span> <span class="etag t-teal" data-tag="catalyseur">Catalyseur</span>
+        </div>
       </div>
     </div>
     <div class="rm-sep"></div>
@@ -532,8 +712,22 @@ nav {
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot future"></div><div class="rm-month">Sept.</div><div class="rm-quarter">T3 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event" data-tags="commercial"><span class="ev-status s-coming">Coming</span><strong>Bêta direct-to-device</strong> — AT&T, Verizon<br><span class="etag t-teal" data-tag="commercial">Commercial</span></div>
-        <div class="rm-event" data-tags="j-leo"><span class="ev-status s-coming">Coming</span><strong>MIC Japon</strong> — réunion suivi spectre 700 MHz<br><span class="etag t-pink" data-tag="j-leo">J-LEO</span></div>
+        <div class="rm-event" data-tags="commercial"
+          data-title="Lancement du service bêta direct-to-device"
+          data-status="coming" data-date="S2 2026" data-tag-label="Commercial"
+          data-desc="AT&T et Verizon lancent le service bêta direct-to-device avec les satellites ASTS. La couverture est d'abord intermittente (dépendante du passage des satellites), couvrant progressivement les zones rurales et sans réseau aux États-Unis. Ce service bêta précède le lancement commercial grand public prévu au H1 2027."
+          data-kv='[{"l":"Partenaires","v":"AT&T + Verizon"},{"l":"Type","v":"Service bêta — couverture intermittente"},{"l":"Marché","v":"USA — zones rurales prioritaires"},{"l":"Commercial","v":"H1 2027"}]'
+          data-source="Guidance ASTS · 2026">
+          <strong>Bêta direct-to-device</strong> — AT&T, Verizon<br><span class="etag t-teal" data-tag="commercial">Commercial</span>
+        </div>
+        <div class="rm-event" data-tags="j-leo"
+          data-title="MIC Japon — réunion de suivi spectre 700 MHz"
+          data-status="coming" data-date="Septembre 2026" data-tag-label="J-LEO"
+          data-desc="Le MIC japonais (Ministère des Affaires intérieures) tient sa réunion de suivi concernant l'approbation du spectre 700 MHz de Rakuten pour usage satellitaire. Cette réunion est une étape vers l'autorisation commerciale formelle du service Saikyo Satellite Service au Japon."
+          data-kv='[{"l":"Institution","v":"MIC Japon"},{"l":"Sujet","v":"Suivi spectre 700 MHz Rakuten"},{"l":"Objectif","v":"Autorisation commerciale formelle"}]'
+          data-source="MIC Japon · 2026">
+          <strong>MIC Japon</strong> — réunion suivi spectre<br><span class="etag t-pink" data-tag="j-leo">J-LEO</span>
+        </div>
       </div>
     </div>
     <div class="rm-sep q"></div>
@@ -541,8 +735,22 @@ nav {
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot future"></div><div class="rm-month">Oct.</div><div class="rm-quarter">T4 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event" data-tags="lancement"><span class="ev-status s-coming">Coming</span><strong>Prochain lancement F9</strong> — BB 14-15-16<br><span class="etag t-blue" data-tag="lancement">Lancement</span></div>
-        <div class="rm-event" data-tags="commercial"><span class="ev-status s-coming">Coming</span><strong>Couverture continue USA</strong> — ~25 Block 2<br><span class="etag t-teal" data-tag="commercial">Commercial</span></div>
+        <div class="rm-event" data-tags="lancement"
+          data-title="Prochain lancement Falcon 9 — BB 14, 15, 16"
+          data-status="coming" data-date="Octobre 2026 (estimé)" data-tag-label="Lancement"
+          data-desc="Le 3ème lancement Falcon 9 de la série Block 2 est estimé en octobre 2026. ASTS a déclaré avoir 4 lancements Falcon 9 réservés pour le reste de l'année 2026. Après ce lancement, la constellation devrait compter ~15 satellites actifs."
+          data-kv='[{"l":"Lanceur","v":"Falcon 9"},{"l":"Satellites","v":"BB 14, 15, 16"},{"l":"Post-lancement","v":"~15 satellites actifs"},{"l":"Lancements F9 réservés","v":"4 au total sur 2026"}]'
+          data-source="Guidance ASTS · Podcast AST Community">
+          <strong>Prochain lancement F9</strong> — BB 14-15-16<br><span class="etag t-blue" data-tag="lancement">Lancement</span>
+        </div>
+        <div class="rm-event" data-tags="commercial"
+          data-title="Couverture continue USA — seuil ~25 satellites Block 2"
+          data-status="coming" data-date="T4 2026 (conditionnel)" data-tag-label="Commercial"
+          data-desc="Une fois ~25 satellites Block 2 actifs en orbite, ASTS pourra offrir une couverture continue (et non plus intermittente) aux États-Unis. Ce seuil permettrait d'activer le service commercial élargi pour les abonnés AT&T, Verizon et T-Mobile sans dépendre du passage des satellites."
+          data-kv='[{"l":"Seuil","v":"~25 satellites Block 2"},{"l":"Service","v":"Couverture continue USA"},{"l":"Bénéficiaires","v":"AT&T, Verizon, T-Mobile abonnés"}]'
+          data-source="Guidance ASTS · 2026">
+          <strong>Couverture continue USA</strong> — ~25 Block 2<br><span class="etag t-teal" data-tag="commercial">Commercial</span>
+        </div>
       </div>
     </div>
     <div class="rm-sep"></div>
@@ -550,8 +758,22 @@ nav {
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot future"></div><div class="rm-month">Nov.</div><div class="rm-quarter">T4 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event" data-tags="lancement"><span class="ev-status s-coming">Coming</span><strong>Lancement F9 suivant</strong> — BB 17-18-19<br><span class="etag t-blue" data-tag="lancement">Lancement</span></div>
-        <div class="rm-event" data-tags="commercial"><span class="ev-status s-coming">Coming</span><strong>Brésil JV locale</strong> — MIMO 4 sats<br><span class="etag t-teal" data-tag="commercial">Commercial</span></div>
+        <div class="rm-event" data-tags="lancement"
+          data-title="4ème lancement Falcon 9 — BB 17, 18, 19"
+          data-status="coming" data-date="Novembre 2026 (estimé)" data-tag-label="Lancement"
+          data-desc="Le 4ème et dernier lancement Falcon 9 réservé par ASTS pour 2026 est estimé en novembre. Après ce lancement, la constellation devrait compter ~18 satellites Block 2 actifs."
+          data-kv='[{"l":"Lanceur","v":"Falcon 9"},{"l":"Satellites","v":"BB 17, 18, 19"},{"l":"Post-lancement","v":"~18 satellites actifs"}]'
+          data-source="Guidance ASTS · 2026">
+          <strong>Lancement F9 suivant</strong> — BB 17-18-19<br><span class="etag t-blue" data-tag="lancement">Lancement</span>
+        </div>
+        <div class="rm-event" data-tags="commercial"
+          data-title="Brésil — Lancement de la JV locale"
+          data-status="coming" data-date="T4 2026" data-tag-label="Commercial"
+          data-desc="ASTS devrait officialiser sa joint-venture locale avec 1 à 2 opérateurs brésiliens en T4 2026, s'appuyant sur le spectre S-band déjà approuvé par l'Anatel. La technologie MIMO multi-satellites (jusqu'à 4 satellites simultanés par utilisateur) est confirmée pour le marché brésilien, offrant des débits plus élevés."
+          data-kv='[{"l":"Marché","v":"Brésil"},{"l":"Spectre","v":"S-band 10×10 MHz (approuvé)"},{"l":"Tech","v":"MIMO 4 sats simultanés"},{"l":"Partenaires","v":"1-2 MNO brésiliens"}]'
+          data-source="Guidance ASTS · Anatel · 2026">
+          <strong>Brésil JV locale</strong> — MIMO 4 sats<br><span class="etag t-teal" data-tag="commercial">Commercial</span>
+        </div>
       </div>
     </div>
     <div class="rm-sep"></div>
@@ -559,8 +781,22 @@ nav {
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot future"></div><div class="rm-month">Déc.</div><div class="rm-quarter">T4 2026</div></div>
       <div class="rm-events">
-        <div class="rm-event" data-tags="incident"><span class="ev-status s-coming">Coming</span><strong>45 sats non atteignables</strong> — révision officielle<br><span class="etag t-coral" data-tag="incident">Révisé</span></div>
-        <div class="rm-event" data-tags="lancement"><span class="ev-status s-uncertain">Incertain</span><strong>New Glenn ?</strong> — retour si pad réparé<br><span class="etag t-amber" data-tag="lancement">Lancement</span></div>
+        <div class="rm-event" data-tags="incident"
+          data-title="Objectif 45 satellites fin 2026 non atteignable"
+          data-status="coming" data-date="Fin 2026" data-tag-label="Révisé"
+          data-desc="L'objectif officiel d'ASTS de 45 satellites en orbite fin 2026 n'est pas atteignable. Avec seulement 4 lancements Falcon 9 réservés (~12 satellites supplémentaires), la constellation devrait compter ~21 satellites fin 2026. L'objectif révisé de 45 satellites est repoussé à Q1 2027. Une révision officielle de la guidance est attendue."
+          data-kv='[{"l":"Objectif initial","v":"45 satellites fin 2026"},{"l":"Réaliste","v":"~21 satellites fin 2026"},{"l":"Objectif révisé","v":"~45 satellites Q1 2027"},{"l":"Cause","v":"4 lancements F9 réservés seulement"}]'
+          data-source="Podcast 'Why SpaceX Insiders are Shorting ASTS' · 2026">
+          <strong>45 sats non atteignables</strong> — révision<br><span class="etag t-coral" data-tag="incident">Révisé</span>
+        </div>
+        <div class="rm-event" data-tags="lancement"
+          data-title="Retour potentiel de New Glenn (Blue Origin)"
+          data-status="uncertain" data-date="Décembre 2026 (incertain)" data-tag-label="Lancement"
+          data-desc="Blue Origin pourrait reprendre les opérations de New Glenn en décembre 2026 si la réparation du pad de lancement est terminée et si la FAA lève son interdiction. Un retour réussi de New Glenn permettrait d'accélérer la cadence de lancement d'ASTS en 2027, mais reste conditionnel à plusieurs facteurs techniques et réglementaires."
+          data-kv='[{"l":"Condition 1","v":"Pad de lancement réparé"},{"l":"Condition 2","v":"Levée interdiction FAA"},{"l":"Impact si retour","v":"Cadence accélérée en 2027"},{"l":"Fiabilité","v":"Incertaine — après échec NG-3"}]'
+          data-source="Podcast AST Community · 2026">
+          <span class="ev-status s-uncertain">Incertain</span><strong>New Glenn ?</strong> — retour si pad réparé<br><span class="etag t-amber" data-tag="lancement">Lancement</span>
+        </div>
       </div>
     </div>
     <div class="rm-sep q"></div>
@@ -568,7 +804,14 @@ nav {
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot future"></div><div class="rm-month">Jan.</div><div class="rm-quarter">Q1 2027</div></div>
       <div class="rm-events">
-        <div class="rm-event" data-tags="lancement"><span class="ev-status s-uncertain">Incertain</span><strong>Blue Origin reprend</strong> — 2-3 missions nécessaires<br><span class="etag t-blue" data-tag="lancement">Lancement</span></div>
+        <div class="rm-event" data-tags="lancement"
+          data-title="Blue Origin reprend les lancements pour ASTS"
+          data-status="uncertain" data-date="Q1 2027 (incertain)" data-tag-label="Lancement"
+          data-desc="Blue Origin devrait reprendre ses lancements pour ASTS après 2 à 3 missions New Glenn réussies pour rétablir la confiance. Un retour en opérations permettrait à ASTS de cadencer ses lancements plus rapidement. Cependant, après l'échec de NG-3, ASTS restera probablement prudent et privilégiera Falcon 9 pour ses satellites critiques."
+          data-kv='[{"l":"Condition","v":"2-3 missions NG réussies d'abord"},{"l":"Impact","v":"Cadence accélérée vers 45 sats"},{"l":"Fiabilité","v":"Conditionnelle"}]'
+          data-source="Guidance ASTS · Podcast AST Community">
+          <span class="ev-status s-uncertain">Incertain</span><strong>Blue Origin reprend</strong><br><span class="etag t-blue" data-tag="lancement">Lancement</span>
+        </div>
       </div>
     </div>
     <div class="rm-sep"></div>
@@ -576,7 +819,14 @@ nav {
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot future"></div><div class="rm-month">Fév.</div><div class="rm-quarter">Q1 2027</div></div>
       <div class="rm-events">
-        <div class="rm-event" data-tags="commercial"><span class="ev-status s-coming">Coming</span><strong>~40 sats en orbite</strong><br><span class="etag t-teal" data-tag="commercial">Objectif</span></div>
+        <div class="rm-event" data-tags="commercial"
+          data-title="~40 satellites en orbite — seuil service continu mondial"
+          data-status="coming" data-date="Fév. 2027 (estimé)" data-tag-label="Objectif"
+          data-desc="Avec ~40 satellites Block 2 en orbite, ASTS pourrait offrir une couverture quasi-continue dans les marchés prioritaires (USA, UK, Japon, Brésil...). Ce seuil marque le passage d'un service intermittent à un service utilisable en continu pour les abonnés des MNO partenaires."
+          data-kv='[{"l":"Seuil","v":"~40 satellites Block 2"},{"l":"Service","v":"Couverture quasi-continue"},{"l":"Marchés","v":"USA, UK, Japon, Brésil..."}]'
+          data-source="Guidance ASTS · 2026">
+          <strong>~40 sats en orbite</strong><br><span class="etag t-teal" data-tag="commercial">Objectif</span>
+        </div>
       </div>
     </div>
     <div class="rm-sep"></div>
@@ -584,8 +834,22 @@ nav {
     <div class="rm-col">
       <div class="rm-head"><div class="rm-dot future"></div><div class="rm-month">Mars</div><div class="rm-quarter">Q1 2027</div></div>
       <div class="rm-events">
-        <div class="rm-event" data-tags="commercial"><span class="ev-status s-coming">Coming</span><strong>~45 sats — lancement commercial</strong> — 18 pays<br><span class="etag t-teal" data-tag="commercial">Objectif</span></div>
-        <div class="rm-event" data-tags="finance"><span class="ev-status s-coming">Coming</span><strong>Rentabilité 2027–2028</strong><br><span class="etag t-purple" data-tag="finance">Finance</span></div>
+        <div class="rm-event" data-tags="commercial"
+          data-title="Objectif révisé : ~45 satellites + lancement commercial grand public"
+          data-status="coming" data-date="Q1 2027" data-tag-label="Objectif"
+          data-desc="L'objectif révisé d'ASTS est d'atteindre ~45 satellites en orbite au Q1 2027. Ce seuil permet le lancement commercial grand public dans les 18 pays cibles : USA, Canada, UK, France, Allemagne, Inde, Brésil, Japon, et d'autres. La population cible est de 2,9 milliards de personnes. Les abonnés pourront accéder au service via leur opérateur habituel (AT&T, Verizon, Rakuten, Vodafone...)."
+          data-kv='[{"l":"Satellites cible","v":"~45 Block 2"},{"l":"Pays","v":"18 marchés initiaux"},{"l":"Population cible","v":"2,9 Md personnes"},{"l":"Accès","v":"Via MNO partenaires existants"}]'
+          data-source="Guidance ASTS · Podcast AST Community · 2026">
+          <strong>~45 sats — lancement commercial</strong><br><span class="etag t-teal" data-tag="commercial">Objectif</span>
+        </div>
+        <div class="rm-event" data-tags="finance"
+          data-title="Rentabilité attendue 2027–2028"
+          data-status="coming" data-date="2027–2028" data-tag-label="Finance"
+          data-desc="ASTS anticipe d'atteindre la rentabilité entre 2027 et 2028, soutenue par plus de 1,2 Md$ d'engagements contractuels commerciaux déjà signés. Le lancement commercial grand public en H1 2027 devrait faire accélérer fortement le CA, après une guidance 2026 de 150–200 M$. T-Mobile dans l'écosystème ASTS renforce cette trajectoire."
+          data-kv='[{"l":"Rentabilité","v":"2027–2028"},{"l":"Engagements","v":"+1,2 Md$ contractuels"},{"l":"CA 2026 guidance","v":"150–200 M$"},{"l":"Booster","v":"T-Mobile dans l'écosystème"}]'
+          data-source="Guidance ASTS · SEC filings · 2026">
+          <strong>Rentabilité 2027–2028</strong><br><span class="etag t-purple" data-tag="finance">Finance</span>
+        </div>
       </div>
     </div>
 
@@ -606,11 +870,13 @@ nav {
     <div style="font-size:11px;color:var(--text2)">Expiration du lockup SpaceX : 20% des actions débloquées. Insiders couvrent leurs shorts ASTS (~24 M actions, ~2,4 Md$) → pression acheteuse technique attendue dès mi-juillet.</div>
   </div>
 
-  <div class="footer" style="margin-top:14px">Survole un tag pour filtrer · Clic pour verrouiller · Mise à jour : 27 juin 2026</div>
+  <div class="footer" style="margin-top:14px">Clique sur un ticket pour plus de détails · Survole un tag pour filtrer · Mise à jour : 27 juin 2026</div>
 
 <script>
 const TAG_COLORS={'j-leo':'#D4537E','lancement':'#378ADD','technique':'#639922','commercial':'#1D9E75','catalyseur':'#1D9E75','marche':'#7F77DD','finance':'#7F77DD','reglementaire':'#BA7517','incident':'#D85A30'};
 const TAG_LABELS={'j-leo':'J-LEO','lancement':'Lancement','technique':'Technique','commercial':'Commercial','catalyseur':'Catalyseur','marche':'Marché','finance':'Finance','reglementaire':'Réglementaire','incident':'Incident'};
+const STATUS_HTML={'done':'<span class="ev-status s-done">Done</span>','coming':'<span class="ev-status s-coming">Coming</span>','uncertain':'<span class="ev-status s-uncertain">Incertain</span>'};
+
 const axis=document.getElementById('rm-axis'),hint=document.getElementById('tag-hint');
 let activeTag=null,locked=false;
 function activate(tag){if(activeTag===tag)return;activeTag=tag;axis.classList.add('tag-filter-active');axis.style.setProperty('--match-color',TAG_COLORS[tag]||'#378ADD');document.querySelectorAll('.rm-event').forEach(ev=>{ev.classList.toggle('tag-match',(ev.dataset.tags||'').split(' ').includes(tag));});hint.textContent=TAG_LABELS[tag]||tag;hint.classList.add('visible');}
@@ -621,6 +887,37 @@ document.querySelectorAll('.etag[data-tag]').forEach(tag=>{
   tag.addEventListener('click',e=>{e.stopPropagation();if(locked&&activeTag===tag.dataset.tag){locked=false;deactivate();}else{locked=true;activate(tag.dataset.tag);}});
 });
 document.addEventListener('click',()=>{locked=false;deactivate();});
+
+/* Modal */
+const overlay=document.getElementById('rm-modal-overlay');
+function openModal(ev){
+  const d=ev.dataset;
+  document.getElementById('modal-title').textContent=d.title||'Détails';
+  const meta=document.getElementById('modal-meta');
+  meta.innerHTML=(STATUS_HTML[d.status]||'')+
+    '<span class="etag t-'+{'j-leo':'pink','lancement':'blue','technique':'green','commercial':'teal','catalyseur':'teal','marche':'purple','finance':'purple','reglementaire':'amber','incident':'coral'}[(d.tags||'').split(' ')[0]]||'gray'+'">'+d.tagLabel+'</span>'+
+    (d.date?'<span style="font-size:10px;color:var(--text3)">'+ d.date +'</span>':''  );
+  document.getElementById('modal-desc').textContent=d.desc||'Aucune description disponible.';
+  const kvs=document.getElementById('modal-kvs');
+  kvs.innerHTML='';
+  try{
+    const items=JSON.parse(d.kv||'');
+    items.forEach(item=>{
+      kvs.innerHTML+='<div class="rm-modal-kv"><div class="rm-modal-kv-label">'+item.l+'</div><div class="rm-modal-kv-val">'+item.v+'</div></div>';
+    });
+  }catch(e){}
+  document.getElementById('modal-source').innerHTML=d.source?'Source : '+d.source:'';
+  overlay.classList.add('open');
+}
+function closeModal(e){if(e.target===overlay)overlay.classList.remove('open');}
+function closeModalDirect(){overlay.classList.remove('open');}
+document.querySelectorAll('.rm-event[data-title]').forEach(ev=>{
+  ev.addEventListener('click',e=>{
+    e.stopPropagation();
+    if(!locked)openModal(ev);
+  });
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')overlay.classList.remove('open');});
 </script>
 </div>
 

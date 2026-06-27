@@ -384,6 +384,39 @@ nav {
 ══════════════════════════════════════ -->
 <div id="roadmap" class="page active">
 
+<style>
+.rl-wrap{width:100%;overflow-x:auto;padding-bottom:12px}
+.rl-inner{min-width:900px;padding:0 8px}
+.rl-axis{display:flex;align-items:flex-start;gap:0;position:relative;margin-bottom:0}
+.rl-axis::before{content:'';position:absolute;top:20px;left:0;right:0;height:1.5px;background:var(--border2);z-index:0}
+.rl-col{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;min-width:0}
+.rl-col-head{display:flex;flex-direction:column;align-items:center;gap:4px;padding-bottom:16px;position:relative;z-index:1}
+.rl-dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--border2);background:var(--bg2);flex-shrink:0;transition:all .2s}
+.rl-dot.done{background:var(--border2)}
+.rl-dot.now{background:var(--teal);border-color:var(--teal);box-shadow:0 0 0 3px rgba(29,158,117,.2)}
+.rl-dot.future{background:var(--bg2)}
+.rl-col-label{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text3);text-align:center;white-space:nowrap}
+.rl-sep{width:1px;background:var(--border);flex-shrink:0;margin-top:20px;align-self:stretch}
+.rl-events{width:100%;padding:4px 6px 0;display:flex;flex-direction:column;gap:5px}
+.rl-event{background:var(--bg2);border:0.5px solid var(--border);border-radius:8px;padding:7px 9px;font-size:11px;line-height:1.48;color:var(--text2);cursor:pointer;transition:background .12s}
+.rl-event:hover{background:var(--bg3)}
+.rl-event strong{color:var(--text);font-weight:500}
+.rl-event.hot{background:var(--amber-bg);border-color:var(--amber-bd)}
+.rl-event.win{background:var(--teal-bg);border-color:var(--teal-bd)}
+.rl-event.fail{background:var(--coral-bg);border-color:var(--coral-bd)}
+.rl-event.new-item{background:var(--pink-bg);border-color:var(--pink-bd)}
+.etag{display:inline-flex;font-size:9px;font-weight:600;padding:1px 5px;border-radius:20px;margin-top:4px;white-space:nowrap}
+.japan-band{margin:16px 0 0;padding:10px 14px;background:var(--pink-bg);border:0.5px solid var(--pink-bd);border-radius:10px}
+.japan-band-title{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--pink-t);margin-bottom:8px}
+.japan-events{display:flex;gap:8px;flex-wrap:wrap}
+.japan-event{flex:1;min-width:160px;background:var(--bg2);border:0.5px solid var(--pink-bd);border-radius:7px;padding:7px 9px;font-size:11px;line-height:1.45;color:var(--text2)}
+.japan-event strong{color:var(--text);font-weight:500}
+.japan-date{font-size:10px;color:var(--text3);margin-bottom:3px}
+.lockup-band{margin:10px 0 0;padding:9px 14px;background:var(--purple-bg);border:0.5px solid var(--purple-bd);border-radius:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.lockup-band-label{font-size:11px;font-weight:600;color:var(--purple-t);white-space:nowrap}
+.lockup-band-desc{font-size:11px;color:var(--text2)}
+</style>
+
   <div class="stats">
     <div class="stat"><div class="stat-num c-teal">9</div><div class="stat-label">BlueBirds en orbite</div></div>
     <div class="stat"><div class="stat-num c-teal">+3</div><div class="stat-label">BB 11-13 (août 2026)</div></div>
@@ -392,254 +425,203 @@ nav {
     <div class="stat"><div class="stat-num c-purple">¥150 Md</div><div class="stat-label">J-LEO en jeu</div></div>
   </div>
 
-  <!-- T1 -->
-  <div class="section-label">T1 2026 <span class="s-badge t-green">✓ Terminé</span></div>
-  <div class="tl-row">
-    <div class="tl-date">Jan.–Fév.</div>
-    <div class="tl-line"></div>
-    <div class="tl-events">
-      <div class="tl-event done">
-        <span class="tl-dot d-green"></span>
-        <div class="tl-body"><span class="tl-text">✓ Antenne BlueBird 6 déployée — plus grande antenne commerciale LEO jamais déployée</span></div>
-        <span class="tl-tag t-green">Fait</span>
+  <div class="rl-wrap">
+  <div class="rl-inner">
+  <div class="rl-axis">
+
+    <!-- T1 2026 -->
+    <div class="rl-col">
+      <div class="rl-col-head">
+        <div class="rl-dot done"></div>
+        <div class="rl-col-label">T1 2026</div>
+        <span class="s-badge t-green">✓ Terminé</span>
       </div>
-      <div class="tl-event done">
-        <span class="tl-dot d-pink"></span>
-        <div class="tl-body"><span class="tl-text">✓ Rakuten annonce <em>Saikyo Satellite Service powered by AST</em> — lancement commercial Q4 2026 au Japon</span></div>
-        <span class="tl-tag t-pink">J-LEO</span>
+      <div class="rl-events">
+        <div class="rl-event">
+          <strong>Antenne BB 6 déployée</strong> — plus grande antenne commerciale LEO jamais déployée<br>
+          <span class="etag t-green">Technique</span>
+        </div>
+        <div class="rl-event">
+          Rakuten annonce <strong>Saikyo Satellite Service powered by AST</strong> — lancement commercial Q4 2026<br>
+          <span class="etag t-pink">J-LEO</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rl-sep"></div>
+
+    <!-- T2 2026 -->
+    <div class="rl-col">
+      <div class="rl-col-head">
+        <div class="rl-dot done"></div>
+        <div class="rl-col-label">T2 2026</div>
+        <span class="s-badge t-green">✓ Terminé</span>
+      </div>
+      <div class="rl-events">
+        <div class="rl-event fail">
+          <strong>✗ BB 7 : échec New Glenn NG-3</strong> — 19 avr. Panne moteur 2e étage → désorbité. FAA immobilise New Glenn. Couvert assurance.<br>
+          <span class="etag t-coral">Incident</span>
+        </div>
+        <div class="rl-event fail">
+          <strong>↓ ATH 133$ puis −49%</strong> — insiders SpaceX shortent ~24 M actions ASTS (~2,4 Md$) comme hedge du lockup<br>
+          <span class="etag t-purple">Marché</span>
+        </div>
+        <div class="rl-event">
+          <strong>FCC autorise 248 sats SCS</strong> — 700/800 MHz (AT&T, Verizon, FirstNet)<br>
+          <span class="etag t-amber">Réglementaire</span>
+        </div>
+        <div class="rl-event">
+          Record <strong>98,9 Mbps</strong> pic Block 1 vers smartphone non modifié<br>
+          <span class="etag t-green">Technique</span>
+        </div>
+        <div class="rl-event">
+          Résultats T1 : <strong>CA 14,7 M$</strong> — guidance 2026 confirmée 150–200 M$<br>
+          <span class="etag t-purple">Finance</span>
+        </div>
+        <div class="rl-event">
+          TELUS rejoint → <strong>60 MNO partenaires</strong>, 3 Md abonnés couverts<br>
+          <span class="etag t-teal">Commercial</span>
+        </div>
+        <div class="rl-event win">
+          <strong>✓ Lancement réussi BB 8, 9, 10</strong> — 17 juin, Falcon 9, 2h39 EDT. Constellation → 9 satellites. Antennes ~2 400 sq ft. Débit pic cible ~200 Mbps.<br>
+          <span class="etag t-blue">Succès</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rl-sep"></div>
+
+    <!-- T3 2026 -->
+    <div class="rl-col">
+      <div class="rl-col-head">
+        <div class="rl-dot now"></div>
+        <div class="rl-col-label">T3 2026</div>
+        <span class="s-badge t-blue">En cours</span>
+      </div>
+      <div class="rl-events">
+        <div class="rl-event new-item">
+          🆕 <strong>BB 11, 12, 13 annoncés pour 1ère quinzaine août</strong> — Falcon 9, Cap Canaveral. Production confirmée jusqu'à BB 37. Constellation → 12 satellites.<br>
+          <span class="etag t-blue">Annoncé</span>
+        </div>
+        <div class="rl-event new-item">
+          🆕 <strong>Starlink annonce attaque mobile terrestre (FT)</strong> — T-Mobile quitte Starlink et rejoint la JV AT&T-Verizon-ASTS. Catalyseur stratégique positif.<br>
+          <span class="etag t-teal">Catalyseur</span>
+        </div>
+        <div class="rl-event new-item">
+          🆕 <strong>Starlink + Charter Communications (Bloomberg)</strong> — leak stratégique de Starlink pour montrer des alternatives au départ de T-Mobile. Charter en détresse (100 Md$ dette). Move contre-productif.<br>
+          <span class="etag t-teal">Catalyseur</span>
+        </div>
+        <div class="rl-event hot">
+          <strong>Mi-juil. : début dénouement des shorts</strong> — hedgers couvrent avant expiration lockup SpaceX. Catalyseur technique pour le cours.<br>
+          <span class="etag t-purple">Marché</span>
+        </div>
+        <div class="rl-event hot">
+          <strong>20 août : expiration lockup SpaceX</strong> — 20% des actions débloquées (+10% si cours maintenu). Insiders couvrent shorts ASTS → rebond technique attendu.<br>
+          <span class="etag t-purple">Catalyseur</span>
+        </div>
+        <div class="rl-event">
+          Service <strong>bêta direct-to-device</strong> (AT&T, Verizon) — couverture intermittente aux États-Unis<br>
+          <span class="etag t-teal">Commercial</span>
+        </div>
+        <div class="rl-event">
+          MIC Japon : réunion suivi spectre 700 MHz sept. — vers autorisation commerciale formelle<br>
+          <span class="etag t-pink">J-LEO</span>
+        </div>
+        <div class="rl-event">
+          Retour potentiel New Glenn si levée interdiction FAA → booster de cadence fin 2026<br>
+          <span class="etag t-amber">Réglementaire</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rl-sep"></div>
+
+    <!-- T4 2026 -->
+    <div class="rl-col">
+      <div class="rl-col-head">
+        <div class="rl-dot future"></div>
+        <div class="rl-col-label">T4 2026</div>
+        <span class="s-badge t-coral">Objectifs révisés</span>
+      </div>
+      <div class="rl-events">
+        <div class="rl-event fail">
+          <strong>45 sats fin 2026 non atteignable</strong> — 4 lancements F9 réservés = ~12 sats max. Révision officielle attendue. Blue Origin retour possible déc. si pad réparé.<br>
+          <span class="etag t-coral">Révisé</span>
+        </div>
+        <div class="rl-event">
+          Lancements suivants cadence 1–2 mois — <strong>Ariane, MHI H3, ULA</strong> en négociation<br>
+          <span class="etag t-blue">Lancement</span>
+        </div>
+        <div class="rl-event">
+          <strong>Brésil : JV locale</strong> + spectre S-band approuvé. MIMO multi-satellites confirmé (jusqu'à 4 sats simultanés/utilisateur).<br>
+          <span class="etag t-teal">Commercial</span>
+        </div>
+        <div class="rl-event">
+          Couverture continue USA dès ~25 Block 2 actifs — activation MNO partenaires<br>
+          <span class="etag t-teal">Commercial</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rl-sep"></div>
+
+    <!-- Q1 2027 -->
+    <div class="rl-col">
+      <div class="rl-col-head">
+        <div class="rl-dot future"></div>
+        <div class="rl-col-label">Q1 2027</div>
+        <span class="s-badge t-teal">Horizon révisé</span>
+      </div>
+      <div class="rl-events">
+        <div class="rl-event">
+          <strong>~45 satellites en orbite</strong> — Blue Origin reprend après 2-3 missions réussies<br>
+          <span class="etag t-teal">Objectif</span>
+        </div>
+        <div class="rl-event">
+          <strong>Lancement commercial grand public</strong> — 18 pays, 2,9 Md personnes ciblées (US, Canada, UK, France, Allemagne, Inde, Brésil, Japon...)<br>
+          <span class="etag t-teal">Commercial</span>
+        </div>
+        <div class="rl-event">
+          +1,2 Md$ engagements contractuels — T-Mobile dans l'écosystème AST — <strong>rentabilité attendue 2027–2028</strong><br>
+          <span class="etag t-purple">Finance</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+  </div>
+
+  <!-- J-LEO Band -->
+  <div class="japan-band">
+    <div class="japan-band-title">🇯🇵 Catalyseur Japon — J-LEO · Décision imminente · Budget ¥150 Md (~1 Md$)</div>
+    <div class="japan-events">
+      <div class="japan-event">
+        <div class="japan-date">Avr. 2025</div>
+        <strong>1er appel vidéo satellitaire</strong> — Tokyo–Fukushima via BlueBird Block 1, smartphones non modifiés
+      </div>
+      <div class="japan-event">
+        <div class="japan-date">Juin 2026</div>
+        <strong>JV officielle créée</strong> — Satwork Japan (Rakuten Mobile + AST). MIC Japon approuve spectre 700 MHz Rakuten pour usage satellite.
+      </div>
+      <div class="japan-event">
+        <div class="japan-date">Fin juin 2026</div>
+        ⏳ <strong>Décision interne</strong> — 2 finalistes : Rakuten+ASTS vs KDDI+SpaceX. Avantages ASTS : low-band, téléphones existants, H3 Mitsubishi. Annonce publique juil.–août.
+      </div>
+      <div class="japan-event">
+        <div class="japan-date">Q4 2026</div>
+        <strong>Lancement commercial Saikyo</strong> — "FirstNet du Japon". SoftBank & NTT Docomo pourraient rejoindre la JV.
       </div>
     </div>
   </div>
 
-  <!-- T2 -->
-  <div class="section-label">T2 2026 <span class="s-badge t-green">✓ Terminé</span></div>
-  <div class="tl-row">
-    <div class="tl-date">19 avr.</div>
-    <div class="tl-line"></div>
-    <div class="tl-events">
-      <div class="tl-event fail done">
-        <span class="tl-dot d-coral"></span>
-        <div class="tl-body"><span class="tl-text">✗ <strong>BlueBird 7 : échec New Glenn NG-3</strong> — panne moteur 2e étage → désorbité. FAA immobilise New Glenn. Couvert assurance.</span></div>
-        <span class="tl-tag t-coral">Incident</span>
-      </div>
-    </div>
-  </div>
-  <div class="tl-row">
-    <div class="tl-date">Fin mai</div>
-    <div class="tl-line"></div>
-    <div class="tl-events">
-      <div class="tl-event fail done">
-        <span class="tl-dot d-purple"></span>
-        <div class="tl-body"><span class="tl-text">↓ <strong>ASTS 133$ (ATH) puis −49%</strong> — euphorie pré-IPO SpaceX + insiders SpaceX shortent ~24 M actions ASTS (~2,4 Md$) comme hedge du lockup. Starlink = 69% CA SpaceX → ASTS = proxy short naturel.</span></div>
-        <span class="tl-tag t-purple">Marché</span>
-      </div>
-    </div>
-  </div>
-  <div class="tl-row">
-    <div class="tl-date">Avr.–Mai</div>
-    <div class="tl-line"></div>
-    <div class="tl-events">
-      <div class="tl-event done">
-        <span class="tl-dot d-amber"></span>
-        <div class="tl-body"><span class="tl-text">✓ FCC autorise 248 satellites SCS aux USA (700/800 MHz — AT&T, Verizon, FirstNet)</span></div>
-        <span class="tl-tag t-amber">Réglementaire</span>
-      </div>
-      <div class="tl-event done">
-        <span class="tl-dot d-green"></span>
-        <div class="tl-body"><span class="tl-text">✓ Record : 98,9 Mbps pic Block 1 vers smartphone non modifié</span></div>
-        <span class="tl-tag t-green">Technique</span>
-      </div>
-      <div class="tl-event done">
-        <span class="tl-dot d-purple"></span>
-        <div class="tl-body"><span class="tl-text">✓ Résultats T1 : CA 14,7 M$ — guidance 2026 confirmée à 150–200 M$</span></div>
-        <span class="tl-tag t-purple">Finance</span>
-      </div>
-      <div class="tl-event done">
-        <span class="tl-dot d-teal"></span>
-        <div class="tl-body"><span class="tl-text">✓ TELUS (Canada) rejoint → 60 MNO partenaires, 3 Md abonnés couverts</span></div>
-        <span class="tl-tag t-teal">Commercial</span>
-      </div>
-      <div class="tl-event done">
-        <span class="tl-dot d-amber"></span>
-        <div class="tl-body"><span class="tl-text">✓ Autorisation spectre S-band 10×10 MHz au Brésil</span></div>
-        <span class="tl-tag t-amber">Réglementaire</span>
-      </div>
-    </div>
-  </div>
-  <div class="tl-row">
-    <div class="tl-date">17 juin</div>
-    <div class="tl-line"></div>
-    <div class="tl-events">
-      <div class="tl-event win done">
-        <span class="tl-dot d-blue"></span>
-        <div class="tl-body"><span class="tl-text">✓ <strong>Lancement réussi BB 8, 9, 10 (Block 2)</strong> — Falcon 9, 2h39 EDT. Constellation → 9 satellites. Antennes ~2 400 sq ft. Débit pic cible ~200 Mbps.</span></div>
-        <span class="tl-tag t-blue">Succès</span>
-      </div>
-    </div>
+  <!-- Lockup band -->
+  <div class="lockup-band">
+    <div class="lockup-band-label">📅 Catalyseur marché — 20 août 2026</div>
+    <div class="lockup-band-desc">Expiration du lockup SpaceX : 20% des actions débloquées (+10% si cours maintenu). Insiders couvrent leurs shorts ASTS (~24 M actions, ~2,4 Md$) → pression acheteuse technique attendue dès mi-juillet.</div>
   </div>
 
-  <!-- J-LEO -->
-  <div class="section-label">Catalyseur Japon — J-LEO <span class="s-badge t-pink">Décision imminente</span></div>
-  <div class="tl-row">
-    <div class="tl-date">Avr. 2025</div>
-    <div class="tl-line"></div>
-    <div class="tl-events">
-      <div class="tl-event done">
-        <span class="tl-dot d-pink"></span>
-        <div class="tl-body"><span class="tl-text">✓ Premier appel vidéo satellitaire au Japon entre smartphones non modifiés (Tokyo–Fukushima) via BlueBird Block 1</span></div>
-        <span class="tl-tag t-green">Fait</span>
-      </div>
-    </div>
-  </div>
-  <div class="tl-row">
-    <div class="tl-date">Juin 2026</div>
-    <div class="tl-line"></div>
-    <div class="tl-events">
-      <div class="tl-event new-item">
-        <span class="tl-dot d-pink"></span>
-        <div class="tl-body"><span class="tl-text">🆕 <strong>JV officielle créée</strong> — Rakuten Mobile + AST ("Satwork Japan"). KDDI avait découvert que ASTS testait déjà sur le spectre SoftBank.</span></div>
-        <span class="tl-tag t-pink">Nouveau</span>
-      </div>
-      <div class="tl-event new-item">
-        <span class="tl-dot d-amber"></span>
-        <div class="tl-body"><span class="tl-text">🆕 <strong>MIC Japon approuve spectre 700 MHz Rakuten pour usage satellitaire</strong> — low-band exclusif, pénètre décombres/bâtiments. Avantage décisif vs Starlink mid-band. Réunion suivi : sept. 2026.</span></div>
-        <span class="tl-tag t-pink">Nouveau</span>
-      </div>
-      <div class="tl-event hot">
-        <span class="tl-dot d-pink"></span>
-        <div class="tl-body"><span class="tl-text">⏳ <strong>Décision interne fin juin</strong> — 2 finalistes : Rakuten+ASTS vs KDDI+SpaceX. Avantages ASTS : téléphones existants, low-band, lancement potentiel H3 Mitsubishi. Budget ~1 Md$. Annonce publique juil.–août.</span></div>
-        <span class="tl-tag t-amber">En cours</span>
-      </div>
-    </div>
-  </div>
-  <div class="tl-row">
-    <div class="tl-date">Q4 2026</div>
-    <div class="tl-line"></div>
-    <div class="tl-events">
-      <div class="tl-event">
-        <span class="tl-dot d-pink"></span>
-        <div class="tl-body"><span class="tl-text">Si victoire : événement commercial majeur "FirstNet du Japon". SoftBank & NTT Docomo pourraient rejoindre. Lancement <em>Saikyo Satellite Service</em>.</span></div>
-        <span class="tl-tag t-pink">Cible</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- T3 -->
-  <div class="section-label">T3 2026 <span class="s-badge t-blue">En cours</span></div>
-  <div class="tl-row">
-    <div class="tl-date">23 juin</div>
-    <div class="tl-line"></div>
-    <div class="tl-events">
-      <div class="tl-event new-item">
-        <span class="tl-dot d-blue"></span>
-        <div class="tl-body"><span class="tl-text">🆕 <strong>BB 11, 12, 13 annoncés pour 1ère quinzaine août</strong> — Falcon 9, Cap Canaveral. Production confirmée jusqu'à BB 37. Constellation → 12 satellites.</span></div>
-        <span class="tl-tag t-blue">Annoncé</span>
-      </div>
-      <div class="tl-event new-item">
-        <span class="tl-dot d-coral"></span>
-        <div class="tl-body"><span class="tl-text">🆕 <strong>Starlink annonce attaque du marché mobile terrestre (FT)</strong> — vente directe aux consommateurs, concurrence frontale avec les MNOs. T-Mobile quitte Starlink et rejoint la JV AT&T-Verizon-ASTS. Catalyseur stratégique positif.</span></div>
-        <span class="tl-tag t-teal">Catalyseur</span>
-      </div>
-      <div class="tl-event new-item">
-        <span class="tl-dot d-coral"></span>
-        <div class="tl-body"><span class="tl-text">🆕 <strong>Starlink leak discussions avec Charter Communications (Bloomberg)</strong> — câblo US en détresse (100 Md$ dette, 18 Md$ equity). Fuite stratégique de Starlink pour montrer des alternatives au départ de T-Mobile. Contre-productif : galvanise encore plus les MNOs. Charter est lui-même victime de Starlink (pertes abonnés câble). Prochain article attendu : discussions Starlink–Spectrum.</span></div>
-        <span class="tl-tag t-teal">Catalyseur</span>
-      </div>
-    </div>
-  </div>
-  <div class="tl-row">
-    <div class="tl-date">Mi-juil.</div>
-    <div class="tl-line"></div>
-    <div class="tl-events">
-      <div class="tl-event">
-        <span class="tl-dot d-purple"></span>
-        <div class="tl-body"><span class="tl-text"><strong>Début anticipé du dénouement des positions short</strong> — hedgers couvrent avant expiration lockup SpaceX. Catalyseur technique pour le cours.</span></div>
-        <span class="tl-tag t-purple">Marché</span>
-      </div>
-    </div>
-  </div>
-  <div class="tl-row">
-    <div class="tl-date">20 août</div>
-    <div class="tl-line"></div>
-    <div class="tl-events">
-      <div class="tl-event hot">
-        <span class="tl-dot d-purple"></span>
-        <div class="tl-body"><span class="tl-text"><strong>Expiration lockup SpaceX</strong> — 20% des actions débloquées (+10% si cours maintenu). Insiders couvrent shorts ASTS → rebond technique attendu.</span></div>
-        <span class="tl-tag t-purple">Catalyseur</span>
-      </div>
-      <div class="tl-event hot">
-        <span class="tl-dot d-blue"></span>
-        <div class="tl-body"><span class="tl-text"><strong>Lancement BB 11, 12, 13</strong> sur Falcon 9 — constellation → 12 satellites Block 2 actifs.</span></div>
-        <span class="tl-tag t-blue">Lancement</span>
-      </div>
-    </div>
-  </div>
-  <div class="tl-row">
-    <div class="tl-date">Août–Sept.</div>
-    <div class="tl-line"></div>
-    <div class="tl-events">
-      <div class="tl-event">
-        <span class="tl-dot d-teal"></span>
-        <div class="tl-body"><span class="tl-text">Service bêta direct-to-device (AT&T, Verizon) — couverture intermittente aux États-Unis</span></div>
-        <span class="tl-tag t-teal">Commercial</span>
-      </div>
-      <div class="tl-event">
-        <span class="tl-dot d-pink"></span>
-        <div class="tl-body"><span class="tl-text">MIC Japon : réunion suivi spectre 700 MHz — vers autorisation commerciale formelle. Annonce J-LEO attendue.</span></div>
-        <span class="tl-tag t-pink">J-LEO</span>
-      </div>
-      <div class="tl-event">
-        <span class="tl-dot d-amber"></span>
-        <div class="tl-body"><span class="tl-text">Retour potentiel New Glenn si levée interdiction FAA → booster de cadence fin 2026</span></div>
-        <span class="tl-tag t-amber">Réglementaire</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- T4 -->
-  <div class="section-label">T4 2026 — Objectifs révisés <span class="s-badge t-coral">45 sats → Q1 2027</span></div>
-  <div class="tl-row">
-    <div class="tl-date">Oct.–Déc.</div>
-    <div class="tl-line"></div>
-    <div class="tl-events">
-      <div class="tl-event fail">
-        <span class="tl-dot d-coral"></span>
-        <div class="tl-body"><span class="tl-text"><strong>Objectif 45 sats fin 2026 non atteignable</strong> — 4 lancements F9 réservés = ~12 sats supplémentaires max. Révision officielle attendue. Blue Origin retour possible déc. si pad réparé.</span></div>
-        <span class="tl-tag t-coral">Révisé</span>
-      </div>
-      <div class="tl-event">
-        <span class="tl-dot d-blue"></span>
-        <div class="tl-body"><span class="tl-text">Lancements supplémentaires en négociation : Ariane, MHI (H3), ULA, Relativity</span></div>
-        <span class="tl-tag t-blue">Négociation</span>
-      </div>
-      <div class="tl-event">
-        <span class="tl-dot d-teal"></span>
-        <div class="tl-body"><span class="tl-text">Brésil : JV locale probable + spectre S-band approuvé. MIMO multi-satellites confirmé (jusqu'à 4 sats simultanés/utilisateur). Embauches locales en cours.</span></div>
-        <span class="tl-tag t-teal">Commercial</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Q1 2027 -->
-  <div class="section-label">Q1 2027 — Nouvel horizon</div>
-  <div class="tl-row">
-    <div class="tl-date">Mars 2027</div>
-    <div class="tl-line"></div>
-    <div class="tl-events">
-      <div class="tl-event">
-        <span class="tl-dot d-teal"></span>
-        <div class="tl-body"><span class="tl-text"><strong>Objectif révisé : ~45 satellites en orbite</strong> — Blue Origin reprend après 2-3 missions réussies. Lancement commercial grand public. 18 pays cibles, 2,9 Md personnes.</span></div>
-        <span class="tl-tag t-teal">Objectif</span>
-      </div>
-      <div class="tl-event">
-        <span class="tl-dot d-purple"></span>
-        <div class="tl-body"><span class="tl-text">+1,2 Md$ engagements contractuels — T-Mobile dans l'écosystème AST — rentabilité attendue 2027–2028</span></div>
-        <span class="tl-tag t-purple">Finance</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer">Mise à jour : 27 juin 2026 · Sources : Business Wire · SEC 8-K · Rakuten Mobile · MIC Japon · Podcasts AST SpaceMobile Community</div>
+  <div class="footer" style="margin-top:14px">Mise à jour : 27 juin 2026 · Sources : Business Wire · SEC 8-K · Rakuten Mobile · MIC Japon · Bloomberg · FT · Podcasts AST SpaceMobile Community</div>
 </div>
 
 <!-- ══════════════════════════════════════

@@ -509,27 +509,52 @@ nav {
   <div class="rm-launchers">
     <div class="rm-launchers-title">Lanceurs</div>
 
-    <div class="launcher-row l-active" onclick="sendPrompt('Quel est le statut actuel de Falcon 9 pour les lancements ASTS ?')">
+    <div class="launcher-row l-active" data-tags=""
+      data-title="Falcon 9 — Lanceur principal d'ASTS"
+      data-status="done" data-date="Actif depuis juin 2026" data-tag-label="Lanceur"
+      data-desc="Falcon 9 (SpaceX) est devenu le lanceur principal d'AST SpaceMobile après l'échec de BlueBird 7 sur New Glenn en avril 2026. Le premier succès Falcon 9 a eu lieu le 17 juin avec BlueBird 8, 9 et 10. ASTS a réservé 4 lancements Falcon 9 pour le reste de l'année 2026, avec une cadence visée de 1 à 2 lancements par mois. Chaque lancement emporte généralement 3 satellites BlueBird Block 2."
+      data-kv='[{"l":"Opérateur","v":"SpaceX"},{"l":"Statut","v":"Actif — lanceur principal"},{"l":"Lancements réservés 2026","v":"4 (dont BB 8-9-10 et BB 11-12-13)"},{"l":"Capacité","v":"~3 BlueBirds par lancement"},{"l":"Site","v":"Cap Canaveral, Floride"}]'
+      data-source="Business Wire · SEC 8-K · 2026">
       <div class="launcher-name"><span class="launcher-dot"></span>Falcon 9</div>
       <div class="launcher-stat">SpaceX · actif · 4 réservés</div>
     </div>
 
-    <div class="launcher-row l-paused" onclick="sendPrompt('Pourquoi New Glenn est-il immobilisé et quand pourrait-il reprendre les lancements ASTS ?')">
+    <div class="launcher-row l-paused" data-tags=""
+      data-title="New Glenn — Immobilisé après l'échec de BlueBird 7"
+      data-status="uncertain" data-date="Immobilisé depuis le 19 avril 2026" data-tag-label="Lanceur"
+      data-desc="New Glenn (Blue Origin) a connu une panne du moteur du 2e étage lors du lancement NG-3 le 19 avril 2026, entraînant la perte du satellite BlueBird 7. La FAA a immobilisé New Glenn le temps de l'enquête. Un retour en opérations est envisagé en décembre 2026 si le pad de lancement est réparé et l'interdiction FAA levée — mais ASTS privilégiera probablement Falcon 9 pour ses prochains satellites critiques après cet incident."
+      data-kv='[{"l":"Opérateur","v":"Blue Origin"},{"l":"Statut","v":"Immobilisé — enquête FAA"},{"l":"Incident","v":"Panne moteur 2e étage, BB 7 perdu"},{"l":"Retour estimé","v":"Décembre 2026 (incertain)"},{"l":"Condition","v":"Pad réparé + levée interdiction FAA"}]'
+      data-source="SEC 8-K · 19 avr. 2026">
       <div class="launcher-name"><span class="launcher-dot"></span>New Glenn</div>
       <div class="launcher-stat">Blue Origin · immobilisé</div>
     </div>
 
-    <div class="launcher-row l-future" onclick="sendPrompt('Quel est le statut de l\'accord Mitsubishi H3 pour les lancements ASTS au Japon ?')">
+    <div class="launcher-row l-future" data-tags=""
+      data-title="H3 — Accord multi-lancements quasi-certain (Japon)"
+      data-status="coming" data-date="Accord attendu juillet–août 2026" data-tag-label="Lanceur"
+      data-desc="Le H3 de Mitsubishi Heavy Industries devient un lanceur clé pour ASTS suite à l'attribution du projet J-LEO à la JV Rakuten+ASTS. Un accord multi-lancements est quasi-certain, en lien avec le soutien à l'industrie spatiale japonaise — un avantage politique que Starlink ne pouvait pas offrir. Le H3 dans sa configuration maximale peut emporter 3 BlueBirds composites en orbite basse. Mitsubishi prévoit 6 lancements H3 en 2026, avec une cadence potentiellement doublée en 2027."
+      data-kv='[{"l":"Opérateur","v":"Mitsubishi Heavy Industries"},{"l":"Statut","v":"Accord quasi-certain (J-LEO)"},{"l":"Capacité","v":"3 BlueBirds composites/lancement"},{"l":"Cadence 2026","v":"6 lancements H3 prévus"},{"l":"Cadence 2027","v":"Potentiellement x2"}]'
+      data-source="Nikkei · Podcast 'Why ASTS Is About to Own 100% of Japan' · Juin 2026">
       <div class="launcher-name"><span class="launcher-dot"></span>H3</div>
       <div class="launcher-stat">Mitsubishi · quasi-certain</div>
     </div>
 
-    <div class="launcher-row l-tbd" onclick="sendPrompt('Où en sont les négociations avec Ariane pour les lancements ASTS ?')">
+    <div class="launcher-row l-tbd" data-tags=""
+      data-title="Ariane 6 — Négociations en cours"
+      data-status="uncertain" data-date="Discussions exploratoires" data-tag-label="Lanceur"
+      data-desc="ASTS explore des accords de lancement supplémentaires avec ArianeGroup pour diversifier sa flotte de lanceurs et accélérer la cadence vers l'objectif de 45 satellites. Aucun accord formel n'a été annoncé à ce stade — les discussions restent exploratoires. Un partenariat avec Ariane pourrait aussi renforcer le positionnement d'ASTS auprès des régulateurs européens dans le cadre du programme Satellite Connect Europe."
+      data-kv='[{"l":"Opérateur","v":"ArianeGroup"},{"l":"Statut","v":"En négociation — non confirmé"},{"l":"Intérêt","v":"Diversification + ancrage européen"}]'
+      data-source="Guidance ASTS · 2026">
       <div class="launcher-name"><span class="launcher-dot"></span>Ariane 6</div>
       <div class="launcher-stat">ArianeGroup · en négo.</div>
     </div>
 
-    <div class="launcher-row l-tbd" onclick="sendPrompt('Où en sont les négociations avec ULA pour les lancements ASTS ?')">
+    <div class="launcher-row l-tbd" data-tags=""
+      data-title="Vulcan — Négociations en cours"
+      data-status="uncertain" data-date="Discussions exploratoires" data-tag-label="Lanceur"
+      data-desc="ASTS explore également un accord avec ULA (United Launch Alliance) pour son lanceur Vulcan Centaur. Comme avec Ariane, ces discussions visent à diversifier la flotte de lanceurs disponibles et réduire la dépendance à un seul fournisseur après l'incident New Glenn. Aucun accord formel annoncé à ce stade."
+      data-kv='[{"l":"Opérateur","v":"ULA (United Launch Alliance)"},{"l":"Statut","v":"En négociation — non confirmé"},{"l":"Intérêt","v":"Diversification post-incident NG-3"}]'
+      data-source="Guidance ASTS · 2026">
       <div class="launcher-name"><span class="launcher-dot"></span>Vulcan</div>
       <div class="launcher-stat">ULA · en négo.</div>
     </div>
@@ -939,8 +964,10 @@ function openModal(ev){
   const d=ev.dataset;
   document.getElementById('modal-title').textContent=d.title||'Détails';
   const meta=document.getElementById('modal-meta');
+  const firstTag=(d.tags||'').split(' ')[0];
+  const tagColor={'j-leo':'pink','lancement':'blue','technique':'green','commercial':'teal','catalyseur':'teal','marche':'purple','finance':'purple','reglementaire':'amber','incident':'coral'}[firstTag]||'gray';
   meta.innerHTML=(STATUS_HTML[d.status]||'')+
-    '<span class="etag t-'+{'j-leo':'pink','lancement':'blue','technique':'green','commercial':'teal','catalyseur':'teal','marche':'purple','finance':'purple','reglementaire':'amber','incident':'coral'}[(d.tags||'').split(' ')[0]]||'gray'+'">'+d.tagLabel+'</span>'+
+    (d.tagLabel?'<span class="etag t-'+tagColor+'">'+d.tagLabel+'</span>':'')+
     (d.date?'<span style="font-size:10px;color:var(--text3)">'+ d.date +'</span>':''  );
   document.getElementById('modal-desc').textContent=d.desc||'Aucune description disponible.';
   const kvs=document.getElementById('modal-kvs');
@@ -956,7 +983,7 @@ function openModal(ev){
 }
 function closeModal(e){if(e.target===overlay)overlay.classList.remove('open');}
 function closeModalDirect(){overlay.classList.remove('open');}
-document.querySelectorAll('.rm-event[data-title]').forEach(ev=>{
+document.querySelectorAll('.rm-event[data-title], .launcher-row[data-title]').forEach(ev=>{
   ev.addEventListener('click',e=>{
     e.stopPropagation();
     if(!locked)openModal(ev);

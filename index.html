@@ -371,7 +371,7 @@ nav {
     <button class="nav-tab" onclick="showPage('map',this)">Carte stratégique</button>
   </div>
   <div class="nav-right">
-    <span class="nav-updated">Mise à jour : 29 juin 2026</span>
+    <span class="nav-updated">Mise à jour : 1er juillet 2026</span>
     <button class="theme-toggle" onclick="toggleTheme()" title="Changer de thème" aria-label="Basculer dark/light">
       <span class="icon-moon">🌙</span>
       <span class="icon-sun">☀️</span>
@@ -736,12 +736,20 @@ nav {
           <span class="ev-status s-coming">Coming</span><strong>Début dénouement shorts</strong><br><span class="etag t-purple" data-tag="marche">Marché</span>
         </div>
         <div class="rm-event" data-tags="j-leo commercial"
-          data-title="Annonce formelle J-LEO + Accord H3 + Verizon/BT"
-          data-status="coming" data-date="Juillet–Août 2026" data-tag-label="J-LEO"
-          data-desc="3 catalyseurs attendus en juillet–août : (1) Annonce formelle J-LEO — attribution officielle déclenchant approbation MIC complète (août–sept.), adhésion KDDI/NTT/SoftBank via roaming obligatoire, et début du financement JBIC. (2) Accord multi-lancements Mitsubishi Heavy H3 quasi-certain — H3 peut emporter 3 BlueBirds/lancement, cadence 6 lancements 2026 puis x2 en 2027. (3) Verizon fusionne ses opérations internationales avec British Telecom — BT devrait adopter ASTS pour le direct-to-cell au UK via le partenariat Verizon."
-          data-kv='[{"l":"J-LEO annonce","v":"Attribution formelle + KDDI/NTT/SoftBank"},{"l":"Mitsubishi H3","v":"3 BlueBirds/lancement, 6 tirs 2026"},{"l":"Verizon + BT","v":"ASTS UK potentiel via fusion"},{"l":"Budget JV Japon","v":"~1 Md$ sur 3 ans (JBIC + US ExIm)"}]'
-          data-source="Nikkei · Podcast 'Why ASTS Is About to Own 100% of Japan' · Juin 2026">
-          <span class="ev-status s-coming">Coming</span><strong>J-LEO officiel + H3 + BT</strong><br><span class="etag t-pink" data-tag="j-leo">J-LEO</span>
+          data-title="Approbation formelle J-LEO — mi à fin juillet"
+          data-status="coming" data-date="Mi à fin juillet 2026" data-tag-label="J-LEO"
+          data-desc="Rakuten (pas ASTS) pilote la communication du J-LEO. Le processus : Rakuten soumet un plan détaillé (lancement, tech, ground infra, budget, timeline) au MIC/CIAJ → révision → approbation formelle. Selon l'analyse du podcast, l'approbation formelle est attendue mi à fin juillet 2026. En parallèle, signature probable d'un MLA (Multi-Launch Agreement) avec Mitsubishi Heavy — les régulateurs japonais l'exigeraient avant de valider. Financement : JBIC (~1 Md$) + 500 M$ US Export-Import Bank pour les satellites exportés vers le Japon (non-dilutif). Les 'Japan Birds' seront utilisables worldwide quand pas au-dessus du Japon (modèle Planet Labs/JSAT)."
+          data-kv='[{"l":"Approbation formelle","v":"Mi à fin juillet 2026"},{"l":"Pilote","v":"Rakuten (pas ASTS)"},{"l":"MLA Mitsubishi H3","v":"Attendu avec l'annonce formelle"},{"l":"Financement","v":"JBIC + 500 M$ US ExIm Bank"},{"l":"Japan Birds","v":"Utilisables worldwide hors Japon (federated model)"}]'
+          data-source="Podcast 'Spectrum Wars' · 1er juillet 2026">
+          <span class="ev-status s-coming">Coming</span><strong>J-LEO approbation formelle</strong> — mi à fin juil.<br><span class="etag t-pink" data-tag="j-leo">J-LEO</span>
+        </div>
+        <div class="rm-event" data-tags="commercial"
+          data-title="Verizon + British Telecom → ASTS UK potentiel"
+          data-status="coming" data-date="Juin–Juillet 2026" data-tag-label="Commercial"
+          data-desc="Verizon annonce la fusion de ses opérations internationales avec British Telecom (BT). BT travaille actuellement avec Starlink en fixed wireless to home, mais n'a pas de plan direct-to-device. Via son partenariat avec Verizon (membre fondateur de la JV ASTS), BT devrait naturellement adopter ASTS pour le direct-to-cell au Royaume-Uni."
+          data-kv='[{"l":"Événement","v":"Verizon + BT fusion internationale"},{"l":"BT actuel","v":"Fixed wireless Starlink (pas de D2D)"},{"l":"Logique","v":"BT → Verizon → JV ASTS"},{"l":"Marché","v":"Royaume-Uni"}]'
+          data-source="Podcast 'Spectrum Wars' · 1er juillet 2026">
+          <span class="ev-status s-coming">Coming</span><strong>Verizon + BT → ASTS UK</strong><br><span class="etag t-teal" data-tag="commercial">Commercial</span>
         </div>
         <div class="rm-event" data-tags="commercial"
           data-title="Expiration de l'exclusivité T-Mobile avec Starlink"
@@ -750,6 +758,14 @@ nav {
           data-kv='[{"l":"Événement","v":"Exclusivité T-Mobile/Starlink expire"},{"l":"Conséquence","v":"T-Mobile rejoint JV AT&T+VZ+ASTS"},{"l":"Signal","v":"3 top carriers US dans le camp ASTS"}]'
           data-source="Podcast 'Starlink Just Showed Their Hand' · 2026">
           <span class="ev-status s-coming">Coming</span><strong>T-Mobile exclusivité expire</strong><br><span class="etag t-teal" data-tag="commercial">Commercial</span>
+        </div>
+        <div class="rm-event" data-tags="reglementaire marche"
+          data-title="Grain Mgmt 800 MHz + Short interest ATH 87,3 M"
+          data-status="coming" data-date="Juillet 2026" data-tag-label="Réglementaire"
+          data-desc="DEUX CATALYSEURS : (1) Grain Management 800 MHz — La FCC étudie la mise en service du spectre 800 MHz pour D2D. ASTS a publié une lettre officielle de soutien. Starlink NE PEUT PAS utiliser ce spectre low-band (V3 = 5×5m, trop petit). ASTS est la contrepartie naturelle. Soutien Sénateur Cruz. (2) Short interest ATH — Record absolu à 87,3 M actions le 1er juillet. Le marché commence à comprendre que le basket de hedge SpaceX devrait inclure des cloud companies (CoreWeave, Riot) plutôt que 100% space companies. Plus de munitions pour un squeeze en perspective."
+          data-kv='[{"l":"Grain Mgmt 800 MHz","v":"Lettre soutien ASTS — Starlink impossible low-band"},{"l":"FCC","v":"Étude D2D spectre 800 MHz"},{"l":"Short interest","v":"87,3 M actions (ATH absolu)"},{"l":"Rebasing basket","v":"Space → Cloud companies pour hedge SpaceX"}]'
+          data-source="Podcast 'Spectrum Wars' · 1er juillet 2026">
+          <span class="ev-status s-coming">Coming</span><strong>Grain 800 MHz + Short ATH 87,3 M</strong><br><span class="etag t-amber" data-tag="reglementaire">Réglementaire</span>
         </div>
       </div>
     </div>    <div class="rm-sep"></div>
@@ -760,10 +776,10 @@ nav {
         <div class="rm-event" data-tags="lancement"
           data-title="Lancement BlueBird 11, 12, 13 sur Falcon 9"
           data-status="coming" data-date="1ère quinzaine août 2026" data-tag-label="Lancement"
-          data-desc="Le prochain lancement d'ASTS est prévu dans la première quinzaine d'août 2026 depuis Cap Canaveral sur Falcon 9. Les satellites BB 11, 12 et 13 sont des Block 2 avec les antennes de grande superficie et la puce AST5000. Après ce lancement, la constellation comptera 12 satellites Block 2 actifs, rapprochant ASTS du seuil de service continu (~25 sats)."
-          data-kv='[{"l":"Date","v":"1ère quinzaine août 2026"},{"l":"Lanceur","v":"Falcon 9 — Cap Canaveral"},{"l":"Post-lancement","v":"12 satellites actifs"},{"l":"Seuil service continu","v":"~25 satellites"}]'
-          data-source="Business Wire · 23 juin 2026">
-          <span class="ev-status s-coming">Coming</span><strong>BB 11-12-13</strong> — Falcon 9, 1ère quinzaine<br><span class="etag t-blue" data-tag="lancement">Lancement</span>
+          data-desc="Le lancement de BB 11, 12 et 13 est désormais attendu autour de la 1ère semaine d'août 2026 (pas la 1ère quinzaine). Selon le podcast du 1er juillet, les satellites sont en cours de transit vers Cap Canaveral — possiblement dès ce weekend du 1er juillet. La constellation passera à 12 satellites Block 2 actifs après ce lancement."
+          data-kv='[{"l":"Date révisée","v":"~1ère semaine août 2026"},{"l":"Lanceur","v":"Falcon 9 — Cap Canaveral"},{"l":"Transit","v":"Satellites en route vers Cap Canaveral"},{"l":"Post-lancement","v":"12 satellites actifs"},{"l":"Seuil service continu","v":"~25 satellites"}]'
+          data-source="Business Wire 23 juin · Podcast 'Spectrum Wars' 1er juil. 2026">
+          <span class="ev-status s-coming">Coming</span><strong>BB 11-12-13</strong> — Falcon 9, ~1ère semaine août<br><span class="etag t-blue" data-tag="lancement">Lancement</span>
         </div>
         <div class="rm-event" data-tags="marche catalyseur"
           data-title="Expiration du lockup SpaceX — catalyseur technique majeur"
@@ -842,6 +858,14 @@ nav {
           data-source="Guidance ASTS · Anatel · 2026">
           <span class="ev-status s-coming">Coming</span><strong>Brésil JV locale</strong> — MIMO 4 sats<br><span class="etag t-teal" data-tag="commercial">Commercial</span>
         </div>
+        <div class="rm-event" data-tags="commercial"
+          data-title="Mexique — Altan (45×45 MHz 700 MHz) + Carlos Slim"
+          data-status="coming" data-date="T4 2026 (estimé)" data-tag-label="Commercial"
+          data-desc="ASTS teste avec Altan au Mexique — un super-wholesaler qui détient 45×45 MHz de spectre 700 MHz, une concession accordée par le gouvernement mexicain pour couvrir les zones rurales. C'est un spectre low-band exceptionnel. Carlos Slim (Telcel/América Móvil) est connu pour être en opposition avec Elon Musk — logique naturelle pour un partenariat avec ASTS. Une JV est attendue au Mexique, répliquant le template Japon/Brésil."
+          data-kv='[{"l":"Partenaire testé","v":"Altan (super-wholesaler)"},{"l":"Spectre","v":"45×45 MHz de 700 MHz low-band"},{"l":"Carlos Slim","v":"Opposition connue à Elon Musk → logique ASTS"},{"l":"Template","v":"JV souveraine similaire Japon/Brésil"}]'
+          data-source="Podcast 'Spectrum Wars' · 1er juillet 2026">
+          <span class="ev-status s-coming">Coming</span><strong>Mexique — Altan 45×45 MHz 700 MHz</strong><br><span class="etag t-teal" data-tag="commercial">Commercial</span>
+        </div>
       </div>
     </div>
     <div class="rm-sep"></div>
@@ -918,6 +942,22 @@ nav {
           data-source="Guidance ASTS · SEC filings · 2026">
           <span class="ev-status s-coming">Coming</span><strong>Rentabilité 2027–2028</strong><br><span class="etag t-purple" data-tag="finance">Finance</span>
         </div>
+        <div class="rm-event" data-tags="commercial"
+          data-title="Arabie Saoudite (STC) — JV potentielle"
+          data-status="coming" data-date="2027" data-tag-label="Commercial"
+          data-desc="Saudi Telecom Company (STC) a déjà signé un accord commercial avec ASTS (~1 Md$ d'engagements sur 10 ans) et couvre une vaste majorité des marchés du Moyen-Orient. STC pourrait devenir un partenaire JV clé en 2027, répliquant le template de JV gouvernementale initié au Japon. Ce type de partenariat souverain est structurellement impossible pour Starlink."
+          data-kv='[{"l":"Partenaire","v":"Saudi Telecom Company (STC)"},{"l":"Accord existant","v":"~1 Md$ sur 10 ans"},{"l":"Marchés","v":"Arabie Saoudite + Moyen-Orient"},{"l":"Template","v":"JV souveraine similaire J-LEO"}]'
+          data-source="Podcast 'Spectrum Wars' · 1er juillet 2026">
+          <span class="ev-status s-coming">Coming</span><strong>Arabie Saoudite STC — JV potentielle</strong><br><span class="etag t-teal" data-tag="commercial">Commercial</span>
+        </div>
+        <div class="rm-event" data-tags="finance"
+          data-title="Pas de convertible additionnel — CEO confirme"
+          data-status="done" data-date="Fin juin 2026" data-tag-label="Finance"
+          data-desc="Le CEO Scott Wisniewski a déclaré publiquement qu'il n'y a pas besoin d'émettre de dette convertible supplémentaire. Le reste de la constellation sera financé par les prepayments commerciaux des MNO partenaires + le financement J-LEO Japon (~1 Md$ direct + ~1 Md$ de dette parallèle JBIC/ExIm). Un ATM (At The Market) pourrait être mis en place en back-pocket mais sans dilution significative attendue."
+          data-kv='[{"l":"Position CEO","v":"Pas de convertible additionnel nécessaire"},{"l":"Financement","v":"Prepayments MNOs + J-LEO (~2 Md$ total)"},{"l":"ATM","v":"Possible en back-pocket, non-dilutif significatif"}]'
+          data-source="Déclaration publique CEO · Podcast 'Spectrum Wars' · 1er juillet 2026">
+          <span class="ev-status s-done">Done</span><strong>CEO : pas de convertible additionnel</strong><br><span class="etag t-purple" data-tag="finance">Finance</span>
+        </div>
       </div>
     </div>
 
@@ -940,7 +980,7 @@ nav {
     <div style="font-size:11px;color:var(--text2)">Expiration du lockup SpaceX : 20% des actions débloquées. Insiders couvrent leurs shorts ASTS (~24 M actions, ~2,4 Md$) → pression acheteuse technique attendue dès mi-juillet.</div>
   </div>
 
-  <div class="footer" style="margin-top:14px">Clique sur un ticket pour plus de détails · Survole un tag pour filtrer · Mise à jour : 29 juin 2026</div>
+  <div class="footer" style="margin-top:14px">Clique sur un ticket pour plus de détails · Survole un tag pour filtrer · Mise à jour : 1er juillet 2026</div>
 
 <script>
 const TAG_COLORS={'j-leo':'#D4537E','lancement':'#378ADD','technique':'#639922','commercial':'#1D9E75','catalyseur':'#1D9E75','marche':'#7F77DD','finance':'#7F77DD','reglementaire':'#BA7517','incident':'#D85A30'};
@@ -1159,10 +1199,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')overlay.classList.re
         <div class="actor-tags"><span class="atag t-gray">Gov / FirstNet</span></div>
       </div>
       <div class="actor a-gray">
-        <div class="actor-name">Iridium — trading halté</div>
-        <div class="actor-date">Juin 2026 — en cours</div>
-        <div class="actor-sub">Trading d'Iridium suspendu pour annonce imminente. Rachat spéculé (Rocket Lab ?). SpaceX improbable (anti-trust). Consolidation du secteur spatial en cours — toutes les pièces bougent sur l'échiquier.</div>
-        <div class="actor-tags"><span class="atag t-amber">À surveiller</span></div>
+        <div class="actor-name">Rocket Lab rachète Iridium</div>
+        <div class="actor-date">Confirmé · Juillet 2026</div>
+        <div class="actor-sub">Rocket Lab acquiert Iridium — spectre MSS + réseau LEO basse altitude. Logique : suppression du dividende Iridium → cash flows réinvestis en innovation. Rétrocompatibilité militaire critique. Armée US veut des constellations redondantes (LEO/MEO/GEO). Modèle similaire à Amazon/GlobalStar.</div>
+        <div class="actor-tags"><span class="atag t-gray">Rachat confirmé</span><span class="atag t-teal">Consolidation spatiale</span></div>
       </div>
     </div>
   </div>
